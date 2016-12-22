@@ -55,9 +55,15 @@
 				$this->setView("admin/event_edit.php");
 			
 			} elseif (Router::$params[0] == "update") {
-				$event->update(Router::$params[1], $_POST);
+				if (empty($_POST['title'])) {
+					Alert::set('error', "Title is required");
 
-				Router::go("admin/events");
+					Router::go("admin/events/edit/".Router::$params[1]);
+				} else {
+					$event->update(Router::$params[1], $_POST);
+
+					Router::go("admin/events");
+				}
 			
 			} elseif (Router::$params[0] == "delete") {
 				$event->delete(Router::$params[1]);
@@ -65,16 +71,16 @@
 				Router::go("admin/events");
 
 			} elseif (Router::$params[0] == "save") {
-				$validate = validator::validate($_POST, ['title' => 'required|min:6']);
 
-				if ($validate === true) {
+				if (empty($_POST['title'])) {
+					Alert::set('error', "Title is required");
+
+					Router::go("admin/events/create");
+				} else {
+					
 					$event->create($_POST);
 					
 					Router::go("admin/events");
-				} else {
-					$this->setView("admin/event_create.php");
-					
-					Alert::set('error', $validate);
 				}
 
 			} elseif (Router::$params[0] == "create") {
@@ -212,9 +218,22 @@
 			}
 
 		}	
+
+		public function setLeadTable()
+		{
+			$db_config = array(
+				"type" => 'sqlite',
+				"file" => 'application/databases/leaddb.db'
+				);
+			
+			DB::init($db_config);
+		}
 		
 		public function leadsAction()
 		{
+			// SET LEAD TABLE
+			$this->setLeadTable();
+
 			$filter = !empty(Router::$params[0]) ? "AND lead_type_id=".(int)Router::$params[0] : "";
 
 			$this->view->leads = DB::query( "SELECT * FROM lead WHERE status=1 ".$filter." ORDER BY dti DESC" );
@@ -227,6 +246,9 @@
 
 		public function leadAction()
 		{
+			// SET LEAD TABLE
+			$this->setLeadTable();
+
 			if( !empty(Router::$params[0]) ){
 				$id = (int)Router::$params[0];
 				$this->view->lead = DB::query( "SELECT * FROM lead WHERE status=1 AND id=? ORDER BY dti DESC", $id, true );
@@ -241,6 +263,9 @@
 
 		public function leadDeleteAction()
 		{
+			// SET LEAD TABLE
+			$this->setLeadTable();
+
 			$this->disableView();
 
 			if( !empty(Router::$params[0]) ){
@@ -253,6 +278,9 @@
 
 		public function exportAction()
 		{
+			// SET LEAD TABLE
+			$this->setLeadTable();
+
 			$this->disableLayout();
 			$this->disableView();
 
