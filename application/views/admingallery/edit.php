@@ -29,8 +29,8 @@
 							<div class="buttons">
 								<div class="button remove-image delete" data-gallery-id="<?php echo $this->view->gallery['id'] ?>" data-image-id="<?php echo $image['id'] ?>">Delete</div>
 							</div>
-							<img src="<?php echo $image['source']."?v=".time() ?>" onclick="window.location = 'admin-gallery-images/edit/<?php echo $this->view->gallery['id'] ?>/<?php echo $image['id'] ?>'">
-
+							<div style="background-image: url('<?php echo $image['source']."?v=".time() ?>');height: 110px;background-position: center;background-size: cover;" onclick="window.location = 'admin-gallery-images/edit/<?php echo $this->view->gallery['id'] ?>/<?php echo $image['id'] ?>'"></div>
+ 
 							<input type="hidden" name="order[]" value="<?php echo $image['id'] ?>">
 						</li>
 				<?php  } ?>

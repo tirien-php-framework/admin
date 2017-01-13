@@ -13,14 +13,14 @@
 		
 			<label>Image</label>
 			<div class="gallery-wrap"> 
-				<?php echo (isset($this->view->galleryimage)) ? '<img class="small-preview" src="'.$this->view->galleryimage->getSource().'"/>' : '' ?>
+				<?php echo (isset($this->view->galleryimage)) ? '<img style="width:100%" class="small-preview" src="'.$this->view->galleryimage->getSource().'"/>' : '' ?>
 				<div class="fileUpload" >
 				    <span>Choose file</span>
 				    <input type="file" class="upload" name="source[]" multiple="multiple"/>
 				</div>
 			</div>
 			<div class="cf"></div>
-		
+		 
 	<!-- 	
 			<label>Title</label><input name="title" type="text" value="<?php echo (isset($this->view->galleryimage)) ? $this->view->galleryimage->getTitle() : '' ?>">
 		
