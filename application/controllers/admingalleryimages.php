@@ -25,6 +25,7 @@
 		}
 
 		public function saveAction(){
+			ob_start();
 			$galleryId  = Router::$params[0];
 			$imageId = isset(Router::$params[1]) ? Router::$params[1] : null;
 			$gallery_width = $_POST['gallery_width'];
@@ -66,6 +67,10 @@
 						}
 
 						$phonePath = "public".DIRECTORY_SEPARATOR."uploads".DIRECTORY_SEPARATOR."gallery".DIRECTORY_SEPARATOR."phone".DIRECTORY_SEPARATOR.$file;
+
+						if (!file_exists("public".DIRECTORY_SEPARATOR."uploads".DIRECTORY_SEPARATOR."gallery".DIRECTORY_SEPARATOR."phone")) {
+							mkdir("public".DIRECTORY_SEPARATOR."uploads".DIRECTORY_SEPARATOR."gallery".DIRECTORY_SEPARATOR."phone", 0777);
+						}
 		
 						if (!file_exists($phonePath)) 
 						{
@@ -92,8 +97,8 @@
 
 							$galleryimage->setSource($image);
 							$galleryimage->setPhone($phone);
-							$galleryimage->setTitle($_POST['title']);
-							$galleryimage->setText($_POST['text']);
+							$galleryimage->setTitle(!empty($_POST['title']) ? $_POST['title'] : "");
+							$galleryimage->setText(!empty($_POST['text']) ? $_POST['text'] : "");
 							$galleryimage->setVisible(1);
 
 						}
