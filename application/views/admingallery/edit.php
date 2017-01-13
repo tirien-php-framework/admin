@@ -13,7 +13,7 @@
 	<input name="title" disabled type="text" value="<?php echo $this->view->gallery['title'] ?>">
 		
 		<div class="action-wrap">
-			<a class="button " href="admin-gallery-images/edit/<?php echo $this->view->gallery['id'] ?>">Add image</a>
+			<a class="button" style="margin-left: 0px;" href="admin-gallery-images/edit/<?php echo $this->view->gallery['id'] ?>">Add image</a>
 		</div>
 
 		<br><br><br>
