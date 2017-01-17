@@ -1,5 +1,5 @@
 <div class="admin-header">
-	<h1>Edit Page</h1>
+	<h1>Edit <?php echo $this->view->pageTitle ?> Page</h1>
 	<span class="last-update"></span>
 </div>
 
