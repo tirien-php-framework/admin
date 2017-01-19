@@ -4,6 +4,8 @@ require(dirname(__FILE__).'/'.'Query_Builder.php');
 
 Class Model_User extends Query_Builder
 {
+
+	public $tablePrefix = "";
 //todo:srediti docs za ovaj model
 	public function getUser( $data )
 	{
