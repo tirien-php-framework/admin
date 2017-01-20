@@ -109,24 +109,28 @@
 							"size" => $files['size'][$key]
 							);
 						if ($_FILES[$key]['name'] != '') {
-							list( , $temp ) = explode('.', $_FILES[$key]['name']);					
+							list( , $temp ) = explode('.', $_FILES[$key]['name']);										
 
-							if ($temp !='pdf') {
+							if ($_FILES[$key]['type'] == "image/svg+xml") {
+								$svg = File::upload($key, 'public/uploads/images');		
+								foreach ($svg as $value) {
+						    		$elements[$key] = $value;
+								}
+							} else if ($temp !='pdf') {
 								$upload = Image::upload($key, "public/uploads/images");
 								
 								if($upload['status']){
 									$elements[$key] = $upload['uri'];
 								}
-							}else{
-								$newPdf = File::upload($key, 'public/uploads');		
-								foreach ($newPdf as $value) {
+							} else {
+								$pdf = File::upload($key, 'public/uploads/pdf');		
+								foreach ($pdf as $value) {
 						    		$elements[$key] = $value;
 								}
 							}	
 						}
 					}
 				}
-				
 				$this->view->pageId = Router::$params[1];
 
 				if($Page->updateElements($elements)){
@@ -152,6 +156,7 @@
 			}
 
 		}
+
 
 		public function tinyUploadImageAction(){
 
