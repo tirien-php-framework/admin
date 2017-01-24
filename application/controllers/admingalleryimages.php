@@ -71,22 +71,15 @@
 						if (!file_exists("public".DIRECTORY_SEPARATOR."uploads".DIRECTORY_SEPARATOR."gallery".DIRECTORY_SEPARATOR."phone")) {
 							mkdir("public".DIRECTORY_SEPARATOR."uploads".DIRECTORY_SEPARATOR."gallery".DIRECTORY_SEPARATOR."phone", 0777);
 						}
-
-						$extension = explode(".", $ImagePath);
-
 		
-						if ($extension[count($extension) - 1] !== "svg") {
-							if (!file_exists($phonePath)) 
-							{
-								Image::fit( $ImagePath, $phone_width, $phone_height, $phonePath );
-							}
-
-							if ($_POST['manual_crop']!="true"){
-								Image::fill( $ImagePath, $gallery_width, $gallery_height );
-							}		
-						} else {
-							$test = File::upload($id, "public/uploads/gallery");
+						if (!file_exists($phonePath)) 
+						{
+							Image::fit( $ImagePath, $phone_width, $phone_height, $phonePath );
 						}
+
+						if($_POST['manual_crop']!="true"){
+							Image::fill( $ImagePath, $gallery_width, $gallery_height );
+						}		
 
 						if($image){
 							$search = array(
@@ -135,7 +128,7 @@
 
 
 			if($_POST['manual_crop']=="true"){
-				Router::go('admin-crop/?image='.$image.'&width='.$gallery_width.'&height='.$gallery_height.'&thumb_width='.$thumb_width.'&thumb_height='.$thumb_height.'&redirect_uri='.$redirect_uri);
+				Router::go('admin-crop/?image='.$image.'&width='.$gallery_width.'&height='.$gallery_height.'&thumb_width='.$thumb_width.'&thumb_height='.$thumb_height.'&redirect_uri='.$redirect_uri.'&gallery=1');
 			}
 
 			Alert::set("success", "Changes saved");

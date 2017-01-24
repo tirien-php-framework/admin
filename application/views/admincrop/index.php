@@ -32,6 +32,7 @@
         </div>
 
         <input type="hidden" name="image_src" value="<?php echo $this->view->imageSrc ?>" />
+        <input type="hidden" name="gallery" value="<?php echo !empty($_GET['gallery']) ? $_GET['gallery'] : 0; ?>" />
         <input type="hidden" name="redirect_uri" value="<?php echo $_GET['redirect_uri'] ?>" />
         <input type="hidden" id="coords" name="coords" />
         
@@ -46,7 +47,7 @@
 
                 $('#crop').Jcrop({
                     boxWidth: 174,
-                    boxHeight: 85,
+                    boxHeight: 116,
                     onSelect: imageCropped,
                     <?php echo "aspectRatio: {$image[0]}/{$image[1]}";?>
                 });

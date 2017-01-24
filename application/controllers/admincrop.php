@@ -41,13 +41,22 @@
 				Alert::set('error',"Format not supported");
 				return false;			
 			}
+
+			if ($_POST['gallery']) {
+				$phoneImage = ImageCreateTrueColor(($coords->w / (100 / 50)), ($coords->h / (100 / 50)));
+				$image = explode("/", $_POST['image_src']);
+
+				$phonePath = Path::appRoot("public/uploads/gallery/phone/".$image[count($image) - 1]);
+
+				imagecopyresampled($phoneImage, $srcImage, 0, 0, $coords->x, $coords->y, ($coords->w / (100 / 50)), ($coords->h / (100 / 50)), $coords->w, $coords->h);
+				imagejpeg($phoneImage, $phonePath, 85);
+			}
 			
 			$dstImage = ImageCreateTrueColor($coords->w, $coords->h);
 			$dstPath = $srcPath;
 
 			imagecopyresampled($dstImage, $srcImage, 0, 0, $coords->x, $coords->y, $coords->w, $coords->h, $coords->w, $coords->h);
-			$test = imagejpeg($dstImage, $dstPath, 85);
-			// vd($test,1);
+			imagejpeg($dstImage, $dstPath, 85);
 
 			Alert::set('success',"Successfully croped");
 			Router::go($_POST['redirect_uri']);
