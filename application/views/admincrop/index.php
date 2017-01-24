@@ -1,5 +1,12 @@
-<link rel="stylesheet" href="scripts/admin/jcrop/css/jquery.Jcrop.min.css" media="screen" charset="utf-8">
-<script src="scripts/admin/jcrop/jquery.Jcrop.min.js"></script>
+<link rel="stylesheet" href="scripts/admin/jcrop/css/Jcrop.min.css" media="screen" charset="utf-8">
+<script src="scripts/admin/jcrop/js/Jcrop.min.js"></script>
+
+<style>
+    div.jcrop-active {
+        width: auto !important;
+        height: auto !important;
+    }
+</style>
 
 <div class="admin-header">
     <h1>Crop image</h1>
@@ -27,6 +34,8 @@
         <input type="hidden" name="image_src" value="<?php echo $this->view->imageSrc ?>" />
         <input type="hidden" name="redirect_uri" value="<?php echo $_GET['redirect_uri'] ?>" />
         <input type="hidden" id="coords" name="coords" />
+        
+        <?php $image = getimagesize("public/".$this->view->imageSrc); ?>
 
         <script>
             $(function(){
@@ -36,10 +45,10 @@
                 }
 
                 $('#crop').Jcrop({
-                    boxWidth: 800,
-                    boxHeight: 600,
+                    boxWidth: 174,
+                    boxHeight: 85,
                     onSelect: imageCropped,
-                    <?php echo !empty($_GET['width']) && !empty($_GET['width']) ? "aspectRatio: {$_GET['width']}/{$_GET['height']} " : "" ?>
+                    <?php echo "aspectRatio: {$image[0]}/{$image[1]}";?>
                 });
 
             });
