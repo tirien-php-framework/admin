@@ -92,9 +92,9 @@
 		<div class="header-menu cf">
 
 				<ul class="cf">
-					<li <?php echo Router::$action == "events" ? "class='active'" : ""  ?> >
+					<!-- <li <?php echo Router::$action == "events" ? "class='active'" : ""  ?> >
 						<a href="admin/events">Event</a>
-					</li>
+					</li>  -->
 					<li <?php echo Router::$action == "page" ? "class='active'" : ""  ?> >
 						<a href="admin/page">Page</a>
 					</li>
@@ -103,7 +103,16 @@
 					</li>
 					<li <?php echo Router::$controller == "admingallery" ? "class='active'" : ""  ?> >
 						<a href="admin-gallery">Galleries</a>
+					</li> 
+					<li <?php echo Router::$controller == "adminmap" ? "class='active'" : ""  ?> >
+						<a href="admin-map">Maps</a>
 					</li>
+					<li <?php echo Router::$controller == "adminlocation" ? "class='active'" : ""  ?> >
+						<a href="admin-location">Locations</a>
+					</li> 
+					<li <?php echo Router::$controller == "imagewithmarkers" ? "class='active'" : ""  ?> >
+						<a href="admin/imagewithmarkers">Image with Markers</a>
+					</li> 
 				</ul>
 
 				<ul class="account cf">

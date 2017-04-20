@@ -24,8 +24,8 @@
 		function loginAction(){
 			$this->setLayout("login");
 
-			// $u = new Model_User();
-			// $new_user = $u->createUser($_POST);
+				// $u = new Model_User();
+				// $new_user = $u->createUser($_POST);
 
 			if (!empty($_POST['username']) && isset($_POST['password']) && Auth::login( $_POST['username'], $_POST['password'])) { 
 				Header("Location: ".Path::urlBase('admin'));
@@ -314,6 +314,63 @@
 				Export::toXLS($data, $columns);
 			}
 
-		}		
+		}
+
+		public function imageWithMarkersAction(){
+			$Imagewithmarkers = new Model_Imagewithmarker();
+			$this->view->imagewithmarkers = $Imagewithmarkers->getAll();
+
+			if (Router::$params[0] == "add") {
+				DB::insert("imagewithmarkers", array(
+					"x" => 0,
+					"y" => 0
+				));
+
+				Router::go( "admin/imagewithmarkers");
+			}
+			else if (Router::$params[0] == "delete") {
+				$id = Router::$params[1];
+				DB::update("imagewithmarkers", "status=0", "id=".$id );
+
+				Router::go("admin/imagewithmarkers");
+			}
+
+
+			if (!empty($_POST['locations'])) {
+				$locations = $_POST['locations']; 
+				$locationId = Router::$params[0];
+
+				$files = !empty($_FILES['locations']) ? $_FILES['locations'] : "";
+
+				if ($files!='') {
+				
+					foreach ($files['tmp_name'] as $key => $tmp_name) {
+						$_FILES[$key] = array(
+							"name" => $files['name'][$key],
+							"type" => $files['type'][$key],
+							"tmp_name" => $files['tmp_name'][$key],
+							"error" => $files['error'][$key],
+							"size" => $files['size'][$key]
+						);
+
+						$upload = Image::upload($key, "public/uploads/imagewithmarkers");
+								
+						if($upload['status']){
+							$locations['image'] = "uploads/locations/".$upload['img_name'];
+						}
+					}
+					
+				}
+
+				if ($Imagewithmarkers->updataLocataion($locations, $locationId)) {
+					Alert::set("success", "Successfully saved");
+				}
+				else {
+					Alert::set("error", "Error saving");
+				}
+
+				Router::go("admin/imagewithmarkers");
+			}
+		}	
 	}
 ?>

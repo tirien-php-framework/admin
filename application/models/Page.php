@@ -1,6 +1,6 @@
 <?php
 
-require(dirname(__FILE__).'/'.'Query_Builder.php'); 
+require_once(dirname(__FILE__).'/'.'Query_Builder.php'); 
 
 Class Model_Page extends Query_Builder
 {	
