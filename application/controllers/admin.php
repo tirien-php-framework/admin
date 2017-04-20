@@ -320,6 +320,9 @@
 			$Imagewithmarkers = new Model_Imagewithmarker();
 			$this->view->imagewithmarkers = $Imagewithmarkers->getAll();
 
+			$Imageformarker = new Model_Imageformarker();
+			$this->view->imageformarker = $Imageformarker->get();
+
 			if (Router::$params[0] == "add") {
 				DB::insert("imagewithmarkers", array(
 					"x" => 0,
@@ -371,6 +374,48 @@
 
 				Router::go("admin/imagewithmarkers");
 			}
-		}	
+		}
+	
+		public function changeimageAction()
+		{
+			$Imageformarker = new Model_Imageformarker();
+			$this->view->imageformarker = $Imageformarker->get();
+
+			if (!empty($_FILES)) {
+				$elements = $_POST;
+
+				if ( !empty($_FILES['elements'])) {
+					$files = $_FILES['elements'];
+				
+					foreach ( $files['tmp_name'] as $key => $tmp_name ) {
+						$_FILES[$key] = array(
+							"name" => $files['name'][$key],
+							"type" => $files['type'][$key],
+							"tmp_name" => $files['tmp_name'][$key],
+							"error" => $files['error'][$key],
+							"size" => $files['size'][$key]
+							);
+						if ($_FILES[$key]['name'] != '') {
+							list( , $temp ) = explode('.', $_FILES[$key]['name']);
+
+							$upload = Image::upload($key, "public/uploads/images");
+							
+							if ($upload['status']) {
+								$elements[$key] = $upload['uri'];
+							}
+						}
+					}
+				}
+
+				if (count($this->view->imageformarker)) {
+					db::update("imageformarkers", $elements, "id=".(int)$this->view->imageformarker[0]['id'] );
+					Router::go("admin/imagewithmarkers");					
+				}
+				else {
+					DB::insert("imageformarkers", $elements);
+					Router::go("admin/imagewithmarkers");
+				}
+			}
+		}
 	}
 ?>

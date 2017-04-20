@@ -16,6 +16,7 @@
 	<span class="last-update"></span>	
 	<div class="button-wrap">	
 		<a href="admin/imagewithmarkers/add" class="button right">Add item</a>
+		<a href="admin/changeimage" class="button right">Change Image</a>
 	</div>
 </div>
 <?php
@@ -29,7 +30,11 @@
 	<?php Alert::show() ?>
 
 	<div class="tooltipsWrap">
-		<img src="http://seventhartny.com/accounts/20eea/images/east-end-map.jpg" alt="Map" style="width:100%" >
+		<?php if (count($this->view->imageformarker)): ?>
+			<img src="<?php echo $this->view->imageformarker[0]['source'] ?>" alt="Map" style="width:100%" >
+		<?php else: ?>
+			<a href="admin/changeimage" class="button">Add Image</a>
+		<?php endif ?>
 		<div class="locations-tooltip" style="position:absolute; background:white; color:#333; border:1px solid #333; padding:5px; white-space:nowrap; font-size:12px; z-index:999"></div>
 	</div>
 
