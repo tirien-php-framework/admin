@@ -113,6 +113,13 @@
 					<li <?php echo Router::$controller == "imagewithmarkers" ? "class='active'" : ""  ?> >
 						<a href="admin/imagewithmarkers">Image with Markers</a>
 					</li> 
+					<li <?php echo Router::$controller == "adminblog" ? "class='active'" : ""  ?> >
+						<div class="icon-menu"><div class="center cf"></div></div>
+						<a href="admin-blog">Blog & Press</a>
+						<ul class="submenu">
+							<li><a href="admin-blogcategory">Categories</a></li>
+						</ul>
+					</li>
 				</ul>
 
 				<ul class="account cf">

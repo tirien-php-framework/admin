@@ -39,54 +39,52 @@
 	</div>
 
 	<ul>
-	<?php 
-		if (!empty($this->view->imagewithmarkers)) {
-			foreach( $this->view->imagewithmarkers as $location ){
+	<?php if (!empty($this->view->imagewithmarkers)): ?>
+		<?php foreach( $this->view->imagewithmarkers as $location ): ?>
 
-				echo '<form enctype="multipart/form-data" method="post" action="admin/imagewithmarkers/'.$location['id'].'">';
-				echo '<li class="showLi">'; 
-				echo '<a class="showLi">'; 
-				echo '<span style="cursor:pointer" data-target = "'.$location['id'].'">Location - '.$location['className'].' - '.$location['order_number'].' - '.$location['title'].'</span><br/>';
-				echo '<div style="display:none" class = "newsHidde panel-'.$location['id'].'" >';
-				echo '<label>Lat (%)</label><input class="x" type="text" name="locations[x]" value="'.$location['x'].'">';
-				echo '<label>Lng (%)</label><input class="y" type="text" name="locations[y]" value="'.$location['y'].'">';
+				<form enctype="multipart/form-data" method="post" action="admin/imagewithmarkers/<?php echo $location['id'] ?>">
+				<li class="showLi"> 
+				<a class="showLi"> 
+				<span style="cursor:pointer" data-target = "'.$location['id'].'"> Location - <?php echo $location['className'].' - '.$location['order_number'].' - '.$location['title'] ?></span><br/>
+				<div style="display:none" class = "newsHidde panel-<?php echo $location['id'] ?>" >
+				<label>Lat (%)</label><input class="x" type="text" name="locations[x]" value="<?php echo $location['x'] ?>">
+				<label>Lng (%)</label><input class="y" type="text" name="locations[y]" value="<?php echo $location['y'] ?>">
 
-				echo '<label style="margin-top:5px">Order Number</label><input type=text style="width:533px;margin-top:5px" name="locations[order_number]" value="'.$location['order_number'].'">';
-				echo '<label style="margin-top:5px">Title</label><input type=text style="width:533px;margin-top:5px" name="locations[title]" value="'.$location['title'].'">';
+				<label style="margin-top:5px">Order Number</label><input type=text style="width:533px;margin-top:5px" name="locations[order_number]" value="<?php echo $location['order_number'] ?>">
+				<label style="margin-top:5px">Title</label><input type=text style="width:533px;margin-top:5px" name="locations[title]" value="<?php echo $location['title'] ?>">
 
-				echo '<label style="margin-top:5px">Url</label><input type=text style="width:533px;margin-top:5px" name="locations[link]" value="'.$location['link'].'">';
-				echo '<label style="margin-top:5px">Address</label><input type=text style="width:533px;margin-top:5px" name="locations[address]" value="'.$location['address'].'">';
-				echo '<label style="margin-top:5px">Phone</label><input type=text style="width:533px;margin-top:5px" name="locations[phone]" value="'.$location['phone'].'">';
-				echo '<label style="margin-top:5px">Description</label><input type=text style="width:533px;margin-top:5px" name="locations[description]" value="'.$location['description'].'">';
+				<label style="margin-top:5px">Url</label><input type=text style="width:533px;margin-top:5px" name="locations[link]" value="<?php echo $location['link'] ?>">
+				<label style="margin-top:5px">Address</label><input type=text style="width:533px;margin-top:5px" name="locations[address]" value="<?php echo $location['address'] ?>">
+				<label style="margin-top:5px">Phone</label><input type=text style="width:533px;margin-top:5px" name="locations[phone]" value="<?php echo $location['phone'] ?>">
+				<label style="margin-top:5px">Description</label><input type=text style="width:533px;margin-top:5px" name="locations[description]" value="<?php echo $location['description'] ?>">
 
-				echo '<div class="cf"><label style="margin-top:5px">Title Position</label>
+				<div class="cf"><label style="margin-top:5px">Title Position</label>
 					<div class="select-style"><select style="width: 260px;margin-top: 10px;" name="locations[position]" >
-						<option value="" '.($location['position'] == "" ? 'selected="selected"' : '').'>TOP</option>
-						<option value="down" '.($location['position'] == "down" ? 'selected="selected"' : '').'>BOTTOM</option>	
-						<option value="right" '.($location['position'] == "right" ? 'selected="selected"' : '').'>RIGHT</option>	
-					</select></div></div>';
-				echo '<div class="cf"><label style="margin-top:5px">Category</label>
+						<option value="" <?php echo ($location['position'] == "" ? 'selected="selected"' : '') ?>>TOP</option>
+						<option value="down" <?php echo ($location['position'] == "down" ? 'selected="selected"' : '') ?>>BOTTOM</option>	
+						<option value="right" <?php echo ($location['position'] == "right" ? 'selected="selected"' : '') ?>>RIGHT</option>	
+					</select></div></div>
+				<div class="cf"><label style="margin-top:5px">Category</label>
 					<div class="select-style"><select style="width: 260px;margin-top: 10px;" name="locations[className]" >
-						<option value="parks" '.($location['className'] == "parks" ? 'selected="selected"' : '').'>Parks</option>
-						<option value="grocery-stores" '.($location['className'] == "grocery-stores" ? 'selected="selected"' : '').'>Grocery Stores</option>
+						<option value="parks" <?php echo ($location['className'] == "parks" ? 'selected="selected"' : '') ?>>Parks</option>
+						<option value="grocery-stores" <?php echo ($location['className'] == "grocery-stores" ? 'selected="selected"' : '') ?>>Grocery Stores</option>
 					
-						<option value="specialty-markets" '.($location['className'] == "specialty-markets" ? 'selected="selected"' : '').'>Specialty Markets</option>
-						<option value="schools" '.($location['className'] == "schools" ? 'selected="selected"' : '').'>Schools</option>
-						<option value="restaurants" '.($location['className'] == "restaurants" ? 'selected="selected"' : '').'>Restaurants</option>
-						<option value="convenience" '.($location['className'] == "convenience" ? 'selected="selected"' : '').'>Convenience</option>
-						<option value="subway" '.($location['className'] == "subway" ? 'selected="selected"' : '').'>Subway & Bus</option>
-						<option value="shopping" '.($location['className'] == "shopping" ? 'selected="selected"' : '').'>Shopping</option>		
-					</select></div></div>';
-				echo '<div class="cf"><input type="submit" value="Update" class="save-item"></div>';
-				echo '<a style="float: left;margin-left: 20px;" href="admin/imagewithmarkers/delete/'.$location['id'].'" class="button remove-item">delete</a>';
-				echo '<div class="cf" style="padding-bottom: 20px;"></div>';
-				echo "</div>";
-				echo '</a>';
-				echo '</li>';
-				echo '</form>';
-		 	} 
-		}
-	 ?>
+						<option value="specialty-markets" <?php echo ($location['className'] == "specialty-markets" ? 'selected="selected"' : '') ?>>Specialty Markets</option>
+						<option value="schools" <?php echo ($location['className'] == "schools" ? 'selected="selected"' : '') ?>>Schools</option>
+						<option value="restaurants" <?php echo ($location['className'] == "restaurants" ? 'selected="selected"' : '') ?>>Restaurants</option>
+						<option value="convenience" <?php echo ($location['className'] == "convenience" ? 'selected="selected"' : '') ?>>Convenience</option>
+						<option value="subway" <?php echo ($location['className'] == "subway" ? 'selected="selected"' : '') ?>>Subway & Bus</option>
+						<option value="shopping" <?php echo ($location['className'] == "shopping" ? 'selected="selected"' : '') ?>>Shopping</option>		
+					</select></div></div>
+				<div class="cf"><input type="submit" value="Update" class="save-item"></div>
+				<a style="float: left;margin-left: 20px;" href="admin/imagewithmarkers/delete/<?php echo $location['id'] ?>" class="button remove-item">delete</a>
+				<div class="cf" style="padding-bottom: 20px;"></div>
+				</div>
+				</a>
+				</li>
+				</form>
+			<?php endforeach ?>
+		<?php endif ?>
 	</ul>
 </div>
 <script>

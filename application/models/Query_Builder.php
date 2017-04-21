@@ -9,7 +9,9 @@ abstract class Query_Builder
 
 	public function __construct()
 	{
-		return $this->table = strtolower(str_replace('Model_', '', get_class($this))) . $this->tablePrefix;
+		if ($this->table == "") {
+			return $this->table = strtolower(str_replace('Model_', '', get_class($this))) . $this->tablePrefix;
+		}
 	}
 
 	public function get()

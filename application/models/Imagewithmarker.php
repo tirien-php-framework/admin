@@ -2,7 +2,7 @@
 Class Model_Imagewithmarker{
 
 	public function getAll(){
-		return $rs =  DB::query("SELECT * FROM imagewithmarkers WHERE status=1 ORDER BY id");	
+		return $rs =  DB::query("SELECT * FROM imagewithmarkers WHERE status=1 ORDER BY id DESC");	
 	}
 
 	public function getByClass($className){
