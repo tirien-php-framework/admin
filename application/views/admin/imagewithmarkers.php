@@ -78,7 +78,8 @@
 						<option value="shopping" '.($location['className'] == "shopping" ? 'selected="selected"' : '').'>Shopping</option>		
 					</select></div></div>';
 				echo '<div class="cf"><input type="submit" value="Update" class="save-item"></div>';
-				echo '<div class="cf" style="padding-bottom: 20px;"><a style="float: left;margin-left: 20px;" href="admin/imagewithmarkers/delete/'.$location['id'].'" class="button remove-item">delete</a></div>';
+				echo '<a style="float: left;margin-left: 20px;" href="admin/imagewithmarkers/delete/'.$location['id'].'" class="button remove-item">delete</a>';
+				echo '<div class="cf" style="padding-bottom: 20px;"></div>';
 				echo "</div>";
 				echo '</a>';
 				echo '</li>';
@@ -104,21 +105,10 @@
 </script>
 
 <script>
-	$('.showLi').click(function(event) {
+	$('span').click(function(event) {
 		// $(this).toggle();
-		$(this).children('.newsHidde').toggle();
-		$(this).children('.newsHidde').toggleClass('openDraw');
-	});
-	$('.newsHidde').click(function(event) {
-		// $(this).toggle();
-		$(this).toggle();
-		$(this).toggleClass('openDraw');
-	});
-
-	$('[data-target]').click(function(e){
-		e.preventDefault();
-		$('.panel-'+$(this).data('target')).stop(true,true).fadeToggle("slow");
-		
+		$(this).parent().parent().children('.newsHidde').toggle();
+		$(this).parent().parent().children('.newsHidde').toggleClass('openDraw');
 	});
 
 	$('#tooltipsMap').click(function(e) {
