@@ -50,11 +50,15 @@
 				echo '<div style="display:none" class = "newsHidde panel-'.$location['id'].'" >';
 				echo '<label>Lat (%)</label><input class="x" type="text" name="locations[x]" value="'.$location['x'].'">';
 				echo '<label>Lng (%)</label><input class="y" type="text" name="locations[y]" value="'.$location['y'].'">';
-				echo '<label style="margin-top:5px">Title</label><input type=text style="width:533px;margin-top:5px" name="locations[title]" value="'.$location['title'].'">';
-
-				// echo '<label style="margin-top:5px">Link</label><input type=text style="width:533px;margin-top:5px" name="locations[link]" value="'.$location['link'].'">';
 
 				echo '<label style="margin-top:5px">Order Number</label><input type=text style="width:533px;margin-top:5px" name="locations[order_number]" value="'.$location['order_number'].'">';
+				echo '<label style="margin-top:5px">Title</label><input type=text style="width:533px;margin-top:5px" name="locations[title]" value="'.$location['title'].'">';
+
+				echo '<label style="margin-top:5px">Url</label><input type=text style="width:533px;margin-top:5px" name="locations[link]" value="'.$location['link'].'">';
+				echo '<label style="margin-top:5px">Address</label><input type=text style="width:533px;margin-top:5px" name="locations[address]" value="'.$location['address'].'">';
+				echo '<label style="margin-top:5px">Phone</label><input type=text style="width:533px;margin-top:5px" name="locations[phone]" value="'.$location['phone'].'">';
+				echo '<label style="margin-top:5px">Description</label><input type=text style="width:533px;margin-top:5px" name="locations[description]" value="'.$location['description'].'">';
+
 				echo '<div class="cf"><label style="margin-top:5px">Title Position</label>
 					<div class="select-style"><select style="width: 260px;margin-top: 10px;" name="locations[position]" >
 						<option value="" '.($location['position'] == "" ? 'selected="selected"' : '').'>TOP</option>
