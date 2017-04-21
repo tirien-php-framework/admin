@@ -47,15 +47,11 @@
 					echo "</ul>";
 					echo "</div>";
 
-					
-
 					break;	
 
 					case ELEMENT_TYPE_LINK:
 					echo '<label>'.$element['title'].'</label>';
 					echo '<input type="text" disabled style="width: 300px;margin-right: 10px;" name="elements['.$element['id'].']" value="'.$element['content'.$lang_sufix].'">';
-
-					// echo '<input class="upper page-link" type="file" name="elements['.$element['id'].']">';
 
 					echo '<div class="fileUpload" style="overflow:visible">
 							    <span>Choose file</span>
@@ -76,4 +72,31 @@
             <input type="submit" value="Save" class="save-item">
         </div>
 	</form>
+
+	<div class="cf" style="display: block;">
+		<br><br><br><br>
+		<form action="admin/page/add-element" method="post" accept-charset="utf-8">
+			<h2>Add new element</h2>
+		
+			<label>Element name</label>
+			<input type="text" name="title">
+
+			<input type="hidden" name="page_id" value="<?php echo $this->view->pageId ?>">		
+		
+			<label>Element type</label>
+			<div class="select-style">
+				<select name="type_id">
+					<option value="<?php echo ELEMENT_TYPE_TEXTLINE ?>">Textline</option>
+					<option value="<?php echo ELEMENT_TYPE_TEXTAREA ?>">Textarea</option>
+					<option value="<?php echo ELEMENT_TYPE_IMAGE ?>">Image</option>
+					<option value="<?php echo ELEMENT_TYPE_LINK ?>">Link</option>
+					<option value="<?php echo ELEMENT_TYPE_HTML ?>">Html</option>
+				</select>				
+			</div>
+
+            <div class="cf"></div>
+        	
+        	<input type="submit" value="Add element" class="save-item ">
+		</form>
+	</div>
 </div>

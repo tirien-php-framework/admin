@@ -155,6 +155,28 @@
 				$this->view->pages = $Page->getAll();
 			}
 
+			if ( Router::$params[0] == "add-element" ) {
+
+				if (!empty($_POST['title'] && !empty($_POST['type_id']))) {
+					db::insert('page_element', $_POST);
+					Router::go( ml::p()."admin/page/edit/" . $_POST['page_id'] );
+				}
+				else {
+					Alert::set("error", "Name are required");
+					Router::go( ml::p()."admin/page/edit/" . $_POST['page_id'] );
+				}
+			}
+
+			if ( Router::$params[0] == "add-page" ) {
+				if (!empty($_POST['title'] || !empty($_POST['type_id']))) {
+					db::insert('page', $_POST);
+					Router::go( ml::p()."admin/page/" );
+				}
+				else {
+					Alert::set("error", "Name are required");
+					Router::go( ml::p()."admin/page/" );
+				}
+			}
 		}
 
 
