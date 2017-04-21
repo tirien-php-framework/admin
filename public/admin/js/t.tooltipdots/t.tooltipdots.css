@@ -10,6 +10,7 @@
 	-webkit-border-radius: 17px;
 	-moz-border-radius: 17px;
 	border-radius: 17px;
+	transform: translate(-50%, -50%);
 }
 .tooltipPoint span{
 	color: #fff;

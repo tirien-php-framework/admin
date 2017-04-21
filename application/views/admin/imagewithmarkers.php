@@ -31,7 +31,7 @@
 
 	<div class="tooltipsWrap">
 		<?php if (count($this->view->imageformarker)): ?>
-			<img src="<?php echo $this->view->imageformarker[0]['source'] ?>" alt="Map" style="width:100%" >
+			<img src="<?php echo $this->view->imageformarker[0]['source'] ?>" id="tooltipsMap" alt="Map" style="width:100%" >
 		<?php else: ?>
 			<a href="admin/changeimage" class="button">Add Image</a>
 		<?php endif ?>
@@ -103,15 +103,34 @@
 	$('.showLi').click(function(event) {
 		// $(this).toggle();
 		$(this).children('.newsHidde').toggle();
+		$(this).children('.newsHidde').toggleClass('openDraw');
 	});
 	$('.newsHidde').click(function(event) {
 		// $(this).toggle();
 		$(this).toggle();
+		$(this).toggleClass('openDraw');
 	});
 
 	$('[data-target]').click(function(e){
 		e.preventDefault();
 		$('.panel-'+$(this).data('target')).stop(true,true).fadeToggle("slow");
 		
+	});
+
+	$('#tooltipsMap').click(function(e) {
+		var x = e.pageX - $(this).offset().left;
+		var y = e.pageY - $(this).offset().top;
+
+		var xp = x*100/$(this).width();
+		var yp = y*100/$(this).height();
+		console.log($('.openDraw').length);
+		
+		if ($('.openDraw').length != 1) {
+			alert("Open one element for editing!");
+		}
+		else {
+			$('.openDraw').first().children().children('input[name="locations[x]"]').attr('value', xp.toFixed(1));
+			$('.openDraw').first().children().children('input[name="locations[y]"]').attr('value', yp.toFixed(1));
+		}
 	});
 </script>
