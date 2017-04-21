@@ -32,6 +32,11 @@ abstract class Query_Builder
 		return DB::query( "SELECT * FROM $this->table WHERE status=1 and id=? LIMIT 0,1", $id, true);	
 	}
 
+	public function where($requirement, $where, $condition = '=')
+	{
+		return DB::query( "SELECT * FROM $this->table WHERE status=1 and ".$requirement." ".$condition ." ?", $where);	
+	}
+
 	public function update($id, array $data)
 	{
         return DB::update($this->table, $data, "id=".$id );

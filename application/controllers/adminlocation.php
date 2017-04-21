@@ -46,25 +46,10 @@
 			if (!empty(Router::$params[0])){
 
             	$id = Router::$params[0];
-				$this->Location->removeGallery($id);
-
+				DB::update("locations", "status=0", "id=".$id );
 			}
 
-			Router::go('admin-gallery');
-
-		}
-
-		public function saveorderAction(){
-
-			$this->disableView();
-			$order = $_POST['order'];				
-
-			foreach ($order as $order_number=> &$id) {
-				$order_number +=1; 
-				db::update("galleries", 'order_number='.(int)$order_number, "id=".(int)$id );
-			}
-
-			echo "Success";
+			Router::go('admin-location');
 
 		}
 
@@ -135,7 +120,7 @@
 						}
 						else {
 							if (isset($_POST['delete_marker_image']) || isset($_POST['delete_thumb_image']) || isset($_POST['delete_image'])) {
-								if ($_POST['delete_marker_image'] == 1 && empty($this->view->location['marker_image'])) {
+								if ($_POST['delete_marker_image'] == 1 && !empty($this->view->location['marker_image'])) {
 
 									$delete = unlink('public/'.$this->view->location['marker_image']);
 									$_POST['marker_image'] = "";
@@ -143,6 +128,26 @@
 								}
 								else {
 									unset($_POST['delete_marker_image']);
+								}
+
+								if ($_POST['delete_thumb_image'] == 1 && !empty($this->view->location['thumb_image'])) {
+
+									$delete = unlink('public/'.$this->view->location['thumb_image']);
+									$_POST['thumb_image'] = "";
+									unset($_POST['delete_thumb_image']);
+								}
+								else {
+									unset($_POST['delete_thumb_image']);
+								}
+
+								if ($_POST['delete_image'] == 1 && !empty($this->view->location['image'])) {
+
+									$delete = unlink('public/'.$this->view->location['image']);
+									$_POST['image'] = "";
+									unset($_POST['delete_image']);
+								}
+								else {
+									unset($_POST['delete_image']);
 								}
 							}
 

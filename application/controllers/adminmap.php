@@ -39,26 +39,17 @@
 			if (!empty(Router::$params[0])){
 
             	$id = Router::$params[0];
-				$this->Location->removeGallery($id);
+            	
+            	$locations = $this->Map->getLocations($id);
+            	foreach ($locations as $location) {
+					DB::update("locations", "status=0", "id=".$location['id'] );
+            	}
 
+				DB::update("maps", "status=0", "id=".$id );
 			}
 
 			Alert::set("success", "Map removed");
 			Router::go('admin-map');
-		}
-
-		public function saveorderAction(){
-
-			$this->disableView();
-			$order = $_POST['order'];				
-
-			foreach ($order as $order_number=> &$id) {
-				$order_number +=1; 
-				db::update("galleries", 'order_number='.(int)$order_number, "id=".(int)$id );
-			}
-
-			echo "Success";
-
 		}
 
 		public function saveAction(){

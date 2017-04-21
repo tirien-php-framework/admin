@@ -97,7 +97,7 @@
 
 		<input type="submit" value="Update" class="save-item">
 
-		<a href="places/locations/delete/<?php echo $this->view->location['id'] ?>" class="button remove-item">Delete location</a>
+		<a href="admin-location/delete/<?php echo $this->view->location['id'] ?>" class="button remove-item">Delete location</a>
 	</form>
 
 	<script src='public/admin/js/jscolor.min.js'></script>
