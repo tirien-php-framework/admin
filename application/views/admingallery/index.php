@@ -1,6 +1,9 @@
 <div class="admin-header">
 	<h1>Galleries</h1>
 	<span class="last-update"></span>
+	<div class="button-wrap">
+		<a href="admin-gallery/add" class="button right">Add Gallery</a>
+	</div>
 </div>
 
 <div class="admin-content">

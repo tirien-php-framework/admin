@@ -119,8 +119,30 @@
 							} else if ($temp !='pdf') {
 								$upload = Image::upload($key, "public/uploads/images");
 								
-								if($upload['status']){
+								if ($upload['status']) {
 									$elements[$key] = $upload['uri'];
+									$file = $upload['filename'];
+
+									$phone_width = 640;
+									$phone_height = 1200;
+
+									$ImagePath = "public".DIRECTORY_SEPARATOR."uploads".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR.$file;
+
+									$size = getimagesize($ImagePath);
+									if ( $size[0] < $phone_width ) {
+										$phone_width = $size[0];
+									}
+
+									$phonePath = "public".DIRECTORY_SEPARATOR."uploads".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR."mobile".DIRECTORY_SEPARATOR.$file;
+
+									if (!file_exists("public".DIRECTORY_SEPARATOR."uploads".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR."mobile")) {
+										mkdir("public".DIRECTORY_SEPARATOR."uploads".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR."mobile", 0777);
+									}
+					
+									if (!file_exists($phonePath)) 
+									{
+										Image::fit( $ImagePath, $phone_width, $phone_height, $phonePath );
+									}
 								}
 							} else {
 								$pdf = File::upload($key, 'public/uploads/pdf');		

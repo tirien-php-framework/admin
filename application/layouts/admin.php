@@ -99,7 +99,7 @@
 						<a href="admin/page">Page</a>
 					</li>
 					<li <?php echo Router::$action == "lead" ? "class='active'" : ""  ?> >
-						<a href="admin/leads">Lead</a>
+						<a href="admin/leads">Leads</a>
 					</li>
 					<li <?php echo Router::$controller == "admingallery" ? "class='active'" : ""  ?> >
 						<a href="admin-gallery">Galleries</a>

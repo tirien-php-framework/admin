@@ -26,6 +26,7 @@
 				'title' => '',
 				'uri_id' => '',
 				'content' => '',
+				'autor' => '',
 				'description' => '',
 				'pdf' => '',
 				'thumb' => '',
@@ -34,6 +35,7 @@
 				'meta_description' => '',
 				'meta_keyword' => '',
 				'blog_category_id' => '',
+				'created_at' => date("Y-m-d H:i:s"),
 				'visible' => ''
 			);
 

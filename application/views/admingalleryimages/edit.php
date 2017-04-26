@@ -13,22 +13,25 @@
 		
 			<label>Image</label>
 			<div class="gallery-wrap"> 
-				<?php echo (isset($this->view->galleryimage)) ? '<img style="width:100%" class="small-preview" src="public/'.$this->view->galleryimage->getSource().'"/>' : '' ?>
-				<div class="fileUpload" >
-				    <span>Choose file</span>
-				    <input type="file" class="upload" name="source[]" multiple="multiple"/>
-				</div>
+				<?php if (isset($this->view->galleryimage)): ?> 
+					<img style="width:100%" class="small-preview" src="public/<?php echo $this->view->galleryimage->getSource() ?>"/>
+				<?php else: ?>
+					<div class="fileUpload" >
+					    <span>Choose images</span>
+					    <input type="file" class="upload" name="source[]" multiple="multiple"/>
+					</div>
+				<?php endif ?>
 			</div>
 			<div class="cf"></div>
 		 
-	<!-- 	
-			<label>Title</label><input name="title" type="text" value="<?php echo (isset($this->view->galleryimage)) ? $this->view->galleryimage->getTitle() : '' ?>">
-		
-		
-			<label>Text</label>
-			<textarea name="text"><?php echo (isset($this->view->galleryimage)) ? $this->view->galleryimage->getText() : '' ?></textarea>
-		
-		 -->
+			<?php if (isset($this->view->galleryimage)): ?> 
+				<label>Title</label>
+				<input name="title" type="text" value="<?php echo (isset($this->view->galleryimage)) ? $this->view->galleryimage->getTitle() : '' ?>">
+			
+				<label>Text</label>
+				<textarea name="text"><?php echo (isset($this->view->galleryimage)) ? $this->view->galleryimage->getText() : '' ?></textarea>
+			<?php endif ?>
+		 
 		<input name="gallery_id" type="hidden" value="<?php echo $this->view->galleryId ?>">
 		<input name="gallery_width" type="hidden" value="<?php echo $this->view->gallery['width'] ?>">
 		<input name="gallery_height" type="hidden" value="<?php echo $this->view->gallery['height'] ?>">
@@ -52,6 +55,9 @@
 
 			<div class="action-wrap cf">
 				<a href="admin-gallery/edit/<?php echo $this->view->galleryId ?>" class="button remove-item">back to gallery</a>
+				<?php if (isset($this->view->galleryimage)): ?> 
+					<button type="submit" class="button save-item">Save</button>
+				<?php endif ?>
 			</div>
 	
 	</form>

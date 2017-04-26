@@ -16,12 +16,12 @@
 
 				switch($element['type_id']){
 					case ELEMENT_TYPE_TEXTLINE:
-					echo '<label>'.$element['title'].'</label>';
+					echo '<label title="'.$element['id'].'">'.$element['title'].'</label>';
 					echo '<input type="text" name="elements['.$element['id'].']" value="'.htmlspecialchars( $element['content'.$lang_sufix] ).'">';
 					break;
 
 					case ELEMENT_TYPE_TEXTAREA:
-					echo '<label>'.$element['title'].'</label>';
+					echo '<label title="'.$element['id'].'">'.$element['title'].'</label>';
 					echo '<textarea name="elements['.$element['id'].']">'.$element['content'.$lang_sufix].'</textarea>';
 					break;
 
@@ -29,7 +29,7 @@
 
 					echo '<div class="gallery-wrap">';
 					echo '<ul class="image-list cf">';
-					echo '<label>'.$element['title'].'</label>';
+					echo '<label title="'.$element['id'].'">'.$element['title'].'</label>';
 					echo '<li class="items-order">';
 					echo '<div class="buttons">';
 
@@ -38,7 +38,7 @@
 					}
 
 					echo '</div>';
-					echo '<img src="'.$element['content'.$lang_sufix].'?v='.time().'"/>';
+					echo '<img title="'.$element['id'].'" src="'.$element['content'.$lang_sufix].'?v='.time().'"/>';
 					echo '</li>';
 					echo '<div class="fileUpload">
 							    <span>Choose file</span>
@@ -50,7 +50,7 @@
 					break;	
 
 					case ELEMENT_TYPE_LINK:
-					echo '<label>'.$element['title'].'</label>';
+					echo '<label title="'.$element['id'].'">'.$element['title'].'</label>';
 					echo '<input type="text" disabled style="width: 300px;margin-right: 10px;" name="elements['.$element['id'].']" value="'.$element['content'.$lang_sufix].'">';
 
 					echo '<div class="fileUpload" style="overflow:visible">
@@ -60,7 +60,7 @@
 					break;	
 
 					case ELEMENT_TYPE_HTML:
-					echo '<label>'.$element['title'].'</label>';
+					echo '<label title="'.$element['id'].'">'.$element['title'].'</label>';
 					echo '<textarea name="elements['.$element['id'].']" class="htmlEditor">'.$element['content'.$lang_sufix].'</textarea>';
 					break;
 

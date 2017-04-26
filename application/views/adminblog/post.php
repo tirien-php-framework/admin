@@ -11,6 +11,9 @@
 		<label>Title</label>
 		<input type="text" name="title" value="<?php echo $this->view->post['title'] ?>">
 
+		<label>Autor</label>
+		<input type="text" name="autor" value="<?php echo $this->view->post['autor'] ?>">
+		
 		<label>Url</label>
 		<input type="text" name="uri_id" value="<?php echo $this->view->post['uri_id'] ?>">
 
@@ -67,11 +70,14 @@
 		<label>SEO Keywords</label>
 		<input type="text" name="meta_keyword" value="<?php echo $this->view->post['meta_keyword'] ?>">
 
+		<label>Created time (Option)</label>
+		<input type="text" name="created_at" id="datetimepicker1" value="<?php echo $this->view->post['created_at'] ?>">
+
 		<label>Visible</label>
 		<div class="select-style">
 			<select name="visible">
-				<option value="0" <?php if(!$this->view->post['visible']): ?> selected <?php endif ?>>Not Visible</option>
 				<option value="1" <?php if($this->view->post['visible']): ?> selected <?php endif ?>>Visible</option>
+				<option value="0" <?php if(!$this->view->post['visible']): ?> selected <?php endif ?>>Not Visible</option>
 			</select>				
 		</div>
 
@@ -86,3 +92,14 @@
 	</form>
 	
 </div>
+<script src="scripts/timepicker.js"></script>
+<link href="css/timepicker.css" type="text/css" rel="stylesheet" />
+
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+        	dateFormat: 'yy-mm-dd', 
+		    timeFormat: "HH:mm:ss"
+        });
+    });
+</script>
