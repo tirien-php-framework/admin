@@ -120,6 +120,9 @@
 							<li><a href="admin-blogcategory">Categories</a></li>
 						</ul>
 					</li>
+					<li <?php echo Router::$controller == "seo" ? "class='active'" : ""  ?> >
+						<a href="admin/seo">Seo</a>
+					</li> 
 				</ul>
 
 				<ul class="account cf">

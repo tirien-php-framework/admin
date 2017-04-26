@@ -461,5 +461,83 @@
 				}
 			}
 		}
+		public function seoAction(){
+			$SEO = new Model_SEO();
+			$this->view->seo = $SEO->getAll();
+
+			if ( Router::$params[0] == "add" ) {
+				DB::insert( "page_meta", array(
+					"title" => 'New Page',
+					"uri" => '-new-address'
+					) );
+				Router::go( "admin/seo");
+			}
+			else if ( Router::$params[0] == "delete" ) {
+				$id = Router::$params[1];
+				DB::delete( "page_meta", array('id'=>$id) );
+				Router::go( "admin/seo");
+			}
+			else if ( Router::$params[0] == "edit" ) {
+				$id = Router::$params[1];
+				$this->view->seo = $SEO->find($id);
+
+				$this->setView('admin/seo_edit.php');
+
+			}
+			else if ( Router::$params[0] == "update" ) {
+				if ( !empty($_POST) ) {
+					$id = Router::$params[1];
+					$this->view->seo = $SEO->find($id);
+
+					if (!empty($_POST['delete_image']) && $_POST['delete_image'] == 1 && !empty($this->view->seo['image'])) {
+
+						$delete = unlink('public/'.$this->view->seo['image']);
+						$_POST['image'] = "";
+						unset($_POST['delete_image']);
+					}
+					else {
+						unset($_POST['delete_image']);
+					}
+
+					$elements = $_POST;
+
+					if ( !empty($_FILES['elements'])) {
+						$files = $_FILES['elements'];
+					
+						foreach ( $files['tmp_name'] as $key => $tmp_name ) {
+							$_FILES[$key] = array(
+								"name" => $files['name'][$key],
+								"type" => $files['type'][$key],
+								"tmp_name" => $files['tmp_name'][$key],
+								"error" => $files['error'][$key],
+								"size" => $files['size'][$key]
+								);
+							if ($_FILES[$key]['name'] != '') {
+								list( , $temp ) = explode('.', $_FILES[$key]['name']);
+
+								$upload = Image::upload($key, "public/uploads/images");
+								
+								if ($upload['status']) {
+									$elements[$key] = $upload['uri'];
+								}
+							}
+						}
+					}					
+
+					if ($SEO->update($elements, $id)) {
+						Alert::set("success","Successfully saved");
+					}
+					else {
+						Alert::set("error","Error saving");
+					}
+
+					Router::go("admin/seo");
+
+				}
+				else {
+					Router::go("admin/seo");
+				}
+			}
+		}		
 	}
 ?>
