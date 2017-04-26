@@ -7,8 +7,8 @@
 		<title>Admin</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
-		<link href="public/admin/css/admin.css" type="text/css" rel="stylesheet" />
-		<script src="public/admin/js/admin.js"></script>
+		<link href="public/css/admin/admin.css" type="text/css" rel="stylesheet" />
+		<script src="public/scripts/admin/admin.js"></script>
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 	</head>
 		<script>

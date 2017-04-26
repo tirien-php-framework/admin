@@ -84,7 +84,7 @@
 			<input type="submit" value="Add" class="save-item">
 		</form>
 
-		<script src='public/admin/js/jscolor.min.js'></script>
+		<script src='public/scripts/admin/jscolor.min.js'></script>
 		<script src='https://maps.googleapis.com/maps/api/js'></script>
 		<script>
 

@@ -100,7 +100,7 @@
 		<a href="admin-location/delete/<?php echo $this->view->location['id'] ?>" class="button remove-item">Delete location</a>
 	</form>
 
-	<script src='public/admin/js/jscolor.min.js'></script>
+	<script src='public/scripts/admin/jscolor.min.js'></script>
 	<script src="https://maps.googleapis.com/maps/api/js"></script>
 	<script>
 		$('#latitude').keyup(function(event) {

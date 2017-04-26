@@ -34,8 +34,8 @@
 
 </div>
 
-<script src="scripts/timepicker.js"></script>
-<link href="css/timepicker.css" type="text/css" rel="stylesheet" />
+<script src="scripts/admin/timepicker.js"></script>
+<link href="css/admin/timepicker.css" type="text/css" rel="stylesheet" />
 
 <script>
 	$('#timepicker').datetimepicker();

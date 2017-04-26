@@ -110,9 +110,43 @@
 					}
 
 				}
-			else{
-
+			else {
 				$galleryimage = new Model_GalleryImage();
+				$thumb = "";
+
+				if (!empty($_POST['delete_thumb']) && $_POST['delete_thumb'] == 1) {
+					$delete = unlink('public/'.$this->view->gallery['thumb']);
+
+					$_POST['thumb'] = "";
+					unset($_POST['delete_thumb']);
+				}
+				else {
+					unset($_POST['delete_thumb']);
+				}
+
+				if ( !empty($_FILES['elements'])) {
+					$files = $_FILES['elements'];
+				
+					foreach ( $files['tmp_name'] as $key => $tmp_name ) {
+						$_FILES[$key] = array(
+							"name" => $files['name'][$key],
+							"type" => $files['type'][$key],
+							"tmp_name" => $files['tmp_name'][$key],
+							"error" => $files['error'][$key],
+							"size" => $files['size'][$key]
+							);
+						if ($_FILES[$key]['name'] != '') {
+
+							list( , $temp ) = explode('.', $_FILES[$key]['name']);
+
+							$upload = Image::upload($key, "public/uploads/images/thumb");
+							
+							if ($upload['status']) {
+								$thumb = $upload['uri'];
+							}
+						}
+					}
+				}
 
 				if ( isset($imageId) ) {
 					$galleryimage->load($imageId);
@@ -120,7 +154,10 @@
 			}
 
 				$galleryimage->setParentId($galleryId);
+				$galleryimage->setThumb($thumb);
 				$galleryimage->setTitle($_POST['title']);
+				$galleryimage->setFeature($_POST['feature']);
+				$galleryimage->setVertical($_POST['vertical']);
 				$galleryimage->setText($_POST['text']);
 				$galleryimage->save();
 

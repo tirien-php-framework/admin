@@ -2,9 +2,9 @@
 <html>
 <head>
 	<base href="<?php echo Path::urlBase(); ?>/">
-	<link rel="stylesheet" href="css/admin.css">
+	<link rel="stylesheet" href="css/admin/admin.css">
 
-	<script src="public/admin/js/jquery-1.11.1.min.js"></script>
+	<script src="public/js/admin/jquery-1.11.1.min.js"></script>
 	<script>
 
 		$(function(){

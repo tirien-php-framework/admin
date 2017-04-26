@@ -1,7 +1,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-<script src="public/admin/js/t.tooltips.js"></script>
-<link rel="stylesheet" href="public/admin/js/t.tooltipdots/t.tooltipdots.css" type="text/css">
+<script src="public/scripts/admin/t.tooltips.js"></script>
+<link rel="stylesheet" href="public/scripts/admin/t.tooltipdots/t.tooltipdots.css" type="text/css">
 <style>
 	.tooltipPoint span{
 		font-size: 16px;

@@ -27,7 +27,20 @@
 			<?php if (isset($this->view->galleryimage)): ?> 
 				<label>Title</label>
 				<input name="title" type="text" value="<?php echo (isset($this->view->galleryimage)) ? $this->view->galleryimage->getTitle() : '' ?>">
-			
+
+				<label>Thumbnail</label>
+				<div class="file-input-wrap cf">
+					<?php if(!empty($this->view->galleryimage->getThumb())): ?>
+						<div class="small-image-preview" style="background-image: url(<?php echo $this->view->galleryimage->getThumb() ?>)"></div>
+						<input type="checkbox" name="delete_thumb" value="1">Delete this file?
+					<?php else: ?>
+						<div class="fileUpload">
+							<span>Choose file</span>
+							<input type="file" name="elements[thumb]"/>
+						</div>
+					<?php endif ?>
+				</div>
+							
 				<label>Text</label>
 				<textarea name="text"><?php echo (isset($this->view->galleryimage)) ? $this->view->galleryimage->getText() : '' ?></textarea>
 			<?php endif ?>
