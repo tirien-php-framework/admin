@@ -28,15 +28,13 @@ Class Model_Page extends Query_Builder
 	public function getElementContent( $element_id ){
 		$element = $this->getElement($element_id);
 		$p = ml::p();
-		// return $element['type_id']==2 ? nl2br($element['content']) : $element['content'];	
-		return nl2br( empty($p) ? $element['content'] : $element['content_'.trim($p,"/")] );	
+		return $element['type_id']==2 ? nl2br($element['content']) : $element['content'];	
 
 	}
 
 	public function getImageMobileElementContent( $element_id ){
 		$element = $this->getElement($element_id);
 		$p = ml::p();
-		// return $element['type_id']==2 ? nl2br($element['content']) : $element['content'];	
 		$realImagePath = nl2br( empty($p) ? $element['content'] : $element['content_'.trim($p,"/")] );
 		return str_replace('/images/', '/images/mobile/', $realImagePath);
 
