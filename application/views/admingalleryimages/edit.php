@@ -8,7 +8,7 @@
 	<?php Alert::show() ?>
 
 	<form class="upload-image-form" action="admin-gallery-images/save/<?php echo $this->view->galleryId, isset($this->view->imageId) ? "/".$this->view->imageId : "";?>" enctype="multipart/form-data" method="post">
-		<input type="hidden" name="redirect_uri" value="admin-gallery/edit/<?php echo $this->view->galleryId ?>">
+		<input type="hidden" name="redirect_uri" value="<?php echo !empty($_GET['redirect']) ? $_GET['redirect'] : 'admin-gallery/edit/'. $this->view->galleryId ?>">
 	
 		
 			<label>Image</label>
@@ -39,10 +39,24 @@
 							<input type="file" name="elements[thumb]"/>
 						</div>
 					<?php endif ?>
+				</div>				
+
+				<label>Blur</label>
+				<div class="file-input-wrap cf">
+					<?php if(!empty($this->view->galleryimage->getBlur())): ?>
+						<div class="small-image-preview" style="background-image: url(<?php echo $this->view->galleryimage->getBlur() ?>)"></div>
+						<input type="checkbox" name="delete_blur" value="1">Delete this file?
+					<?php else: ?>
+						<div class="fileUpload">
+							<span>Choose file</span>
+							<input type="file" name="elements[blur]"/>
+						</div>
+					<?php endif ?>
 				</div>
 							
 				<label>Text</label>
 				<textarea name="text"><?php echo (isset($this->view->galleryimage)) ? $this->view->galleryimage->getText() : '' ?></textarea>
+
 			<?php endif ?>
 		 
 		<input name="gallery_id" type="hidden" value="<?php echo $this->view->galleryId ?>">
@@ -75,6 +89,8 @@
 	
 	</form>
 </div>
+
+<script src='public/admin/js/jscolor.min.js'></script>
 
 <script type="text/javascript">
 	

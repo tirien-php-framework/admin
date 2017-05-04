@@ -113,6 +113,7 @@
 			else {
 				$galleryimage = new Model_GalleryImage();
 				$thumb = "";
+				$blur = "";
 
 				if (!empty($_POST['delete_thumb']) && $_POST['delete_thumb'] == 1) {
 					$delete = unlink('public/'.$this->view->gallery['thumb']);
@@ -122,6 +123,16 @@
 				}
 				else {
 					unset($_POST['delete_thumb']);
+				}
+
+				if (!empty($_POST['delete_blur']) && $_POST['delete_blur'] == 1) {
+					$delete = unlink('public/'.$this->view->gallery['blur']);
+
+					$_POST['blur'] = "";
+					unset($_POST['delete_blur']);
+				}
+				else {
+					unset($_POST['delete_blur']);
 				}
 
 				if ( !empty($_FILES['elements'])) {
@@ -138,11 +149,38 @@
 						if ($_FILES[$key]['name'] != '') {
 
 							list( , $temp ) = explode('.', $_FILES[$key]['name']);
-
-							$upload = Image::upload($key, "public/uploads/images/thumb");
-							
-							if ($upload['status']) {
-								$thumb = $upload['uri'];
+									
+							if ($temp != 'svg') {
+								if ($key == 'thumb') {
+									$upload = Image::upload($key, "public/uploads/images/thumb");
+									
+									if ($upload['status']) {
+										$thumb = $upload['uri'];
+									}
+								}
+								else {
+									$upload = Image::upload($key, "public/uploads/images/blur");
+									
+									if ($upload['status']) {
+										$blur = $upload['uri'];
+									}
+								}
+							}
+							else {
+								if ($key == 'thumb') {
+									$upload = File::upload($key, "public/uploads/images/thumb");
+									
+									foreach ($upload as $value) {
+							    		$thumb = $value;
+									}
+								}
+								else {
+									$upload = File::upload($key, "public/uploads/images/blur");
+									
+									foreach ($upload as $value) {
+							    		$blur = $value;
+									}
+								}
 							}
 						}
 					}
@@ -155,12 +193,10 @@
 
 				$galleryimage->setParentId($galleryId);
 				$galleryimage->setThumb($thumb);
+				$galleryimage->setBlur($blur);
 				$galleryimage->setTitle($_POST['title']);
-				$galleryimage->setFeature($_POST['feature']);
-				$galleryimage->setVertical($_POST['vertical']);
 				$galleryimage->setText($_POST['text']);
 				$galleryimage->save();
-
 			}
 
 
@@ -169,7 +205,7 @@
 			}
 
 			Alert::set("success", "Changes saved");
-			Router::go('admin-gallery/edit/'.$galleryId);
+			Router::go($_POST['redirect_uri']);
 
 		}
 

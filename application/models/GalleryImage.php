@@ -26,6 +26,7 @@ Class Model_GalleryImage
         $this->thumbGrey = $values['thumb_gray'];
         $this->floorplan = $values['floorplan'];
         $this->pdf = $values['pdf'];
+        $this->blur = $values['blur'];
         $this->projectLink = $values['project_link'];
     }
 
@@ -52,6 +53,7 @@ Class Model_GalleryImage
                 'thumb_gray' => $this->thumbGrey,
                 'floorplan' => $this->floorplan,
                 'pdf' => $this->pdf,
+                'blur' => $this->blur,
                 'project_link' => $this->projectLink
                 );
         if (isset($this->id)) {
@@ -242,6 +244,19 @@ Class Model_GalleryImage
      * @return Model_GalleryImage     */
     public function setPdf($pdf){
         $this->pdf = $pdf;
+        return $this;
+
+    }
+
+    public function getBlur(){
+        return $this->blur;
+
+    }
+    /**
+     *
+     * @return Model_GalleryImage     */
+    public function setBlur($blur){
+        $this->blur = $blur;
         return $this;
 
     }
