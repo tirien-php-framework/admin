@@ -2,7 +2,8 @@
 	<h1>Leads</h1>
 	<span class="last-update"></span>
 	<div class="button-wrap">
-		<a class="button" href="admin/export">export to XLS</a>
+		<a class="button" href="admin/export-xlsx">export to XLSX</a>
+		<a class="button" href="admin/export-csv">export to CSV</a>
 	</div>		
 </div>
 

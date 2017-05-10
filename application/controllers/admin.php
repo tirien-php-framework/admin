@@ -325,7 +325,7 @@
 			Router::go("admin/leads");
 		}
 
-		public function exportAction()
+		public function exportXlsxAction()
 		{
 			// SET LEAD TABLE
 			$this->setLeadTable();
@@ -336,28 +336,65 @@
 			$lead_type = (int)Router::$params[0];
 
 			if( !empty(Router::$params[0]) ){
-				$data = DB::query( "SELECT data FROM lead WHERE status=1 AND lead_type_id=?", $lead_type );
+				$data = DB::query( "SELECT data, dti FROM lead WHERE status=1 AND lead_type_id=?", $lead_type );
 			}
 			else{
-				$data = DB::query("SELECT data FROM lead WHERE status=1");
+				$data = DB::query("SELECT data, dti FROM lead WHERE status=1");
 			}
-
 
 			if( !empty($data) ){
 				$columns = array();
 
-				foreach($data as &$row){ 
+				foreach($data as $row_key => &$row){ 
+					$dti = $row['dti'];
 					$row = json_decode($row['data'], 1);
+					$row['dti'] = $dti;
+
 					if( empty($columns) ){
-						foreach ($row as $key => $value) {
-							$columns[] = $key;
+						foreach ($row as $column_key => $column) {
+							$columns[] = $column_key;
+						}
+					}
+				}
+
+				Export::toXLSX($data, $columns);
+			}
+		}
+
+		public function exportCsvAction()
+		{
+			// SET LEAD TABLE
+			$this->setLeadTable();
+
+			$this->disableLayout();
+			$this->disableView();
+
+			$lead_type = (int)Router::$params[0];
+
+			if( !empty(Router::$params[0]) ){
+				$data = DB::query( "SELECT data, dti FROM lead WHERE status=1 AND lead_type_id=?", $lead_type );
+			}
+			else{
+				$data = DB::query("SELECT data, dti FROM lead WHERE status=1");
+			}
+
+			if( !empty($data) ){
+				$columns = array();
+
+				foreach($data as $row_key => &$row){ 
+					$dti = $row['dti'];
+					$row = json_decode($row['data'], 1);
+					$row['dti'] = $dti;
+
+					if( empty($columns) ){
+						foreach ($row as $column_key => $column) {
+							$columns[] = $column_key;
 						}
 					}
 				}
 							
-				Export::toXLS($data, $columns);
+				Export::toXLScsv($data, $columns);
 			}
-
 		}
 
 		public function imageWithMarkersAction(){
