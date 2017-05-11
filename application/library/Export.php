@@ -1,7 +1,7 @@
 ﻿<?php
 Class Export
 {
-    public static function toXLSX( $data, $columns, $file_name = false )
+    public static function toXLSX( $data, $file_name = null, $column_override = array() )
     {
         if (!is_array($data)) {
             return null;
@@ -18,25 +18,15 @@ Class Export
 
         $objPHPExcel->setActiveSheetIndex(0);
 
-        $objPHPExcel->getActiveSheet()->fromArray($columns);
-        $objPHPExcel->getActiveSheet()->fromArray($data, null, 'A2');
+        $data = self::parseData($data, $column_override);
+
+        $objPHPExcel->getActiveSheet()->fromArray($data, null);
 
         for ($col = 0; $col <= PHPExcel_Cell::columnIndexFromString($objPHPExcel->getActiveSheet()->getHighestDataColumn()); $col++) {
             $objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
         }
 
-        $column_letters = array_keys($columns);
-
-        foreach ($data as $row_key => $row) {
-            $field_key = 0;
-
-            foreach ($row as $value) {
-                $objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column_letters[$field_key], $row_key+2, $value);
-                $field_key++;
-            }
-        }
-
-        if ($file_name === false) {
+        if (empty($file_name)) {
             $now = date("m_d_Y");
             $file_name = "export_{$now}.xlsx";    
         }
@@ -54,13 +44,15 @@ Class Export
         exit;
     }
 
-    public static function toXLScsv( $data, $columns, $file_name = false )
+    public static function toXLScsv( $data, $file_name = null, $column_override = array() )
     {
         if (!is_array($data)) {
             return null;
         }
 
-        if ($file_name === false) {
+        $data = self::parseData($data, $column_override);
+
+        if (empty($file_name)) {
             $now = date("m_d_Y");
             $file_name = "export_{$now}.csv";    
         }
@@ -72,7 +64,6 @@ Class Export
 
         ob_start();
         $df = fopen("php://output", 'w');
-        fputcsv($df, $columns);
 
         foreach ($data as $row) {
           fputcsv($df, $row);
@@ -83,5 +74,29 @@ Class Export
         echo ob_get_clean();
 
         die();
-    }    
+    }
+
+    private static function parseData($data, $column_override){
+        $columns = array();
+
+        foreach($data as $row_key => &$row){ 
+            $row_keys = array_keys($row);
+            $row_columns = array_combine($row_keys, $row_keys);
+            $columns = array_merge($columns, $row_columns);
+        }
+
+        foreach($data as $row_key => &$row){ 
+            $new_row = array();
+            foreach ($columns as $column) {
+                $new_row[$column] = empty($row[$column]) ? null : $row[$column]; 
+            }
+            $row = $new_row;
+        }
+
+        $columns = array_merge($columns, $column_override);
+
+        array_unshift($data, $columns);
+
+        return $data;
+    }
 }

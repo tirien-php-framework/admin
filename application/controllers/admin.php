@@ -344,21 +344,13 @@
 			}
 
 			if( !empty($data) ){
-				$columns = array();
-
 				foreach($data as $row_key => &$row){ 
 					$dti = $row['dti'];
 					$row = json_decode($row['data'], 1);
 					$row['dti'] = $dti;
-
-					if( empty($columns) ){
-						foreach ($row as $column_key => $column) {
-							$columns[] = $column_key;
-						}
-					}
 				}
 
-				Export::toXLSX($data, $columns);
+				Export::toXLSX($data);
 			}
 		}
 
@@ -380,21 +372,13 @@
 			}
 
 			if( !empty($data) ){
-				$columns = array();
-
 				foreach($data as $row_key => &$row){ 
 					$dti = $row['dti'];
 					$row = json_decode($row['data'], 1);
 					$row['dti'] = $dti;
-
-					if( empty($columns) ){
-						foreach ($row as $column_key => $column) {
-							$columns[] = $column_key;
-						}
-					}
 				}
 							
-				Export::toXLScsv($data, $columns);
+				Export::toXLScsv($data);
 			}
 		}
 
