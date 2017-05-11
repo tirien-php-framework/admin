@@ -5,6 +5,7 @@
 	define("ELEMENT_TYPE_GALLERY", 	4);
 	define("ELEMENT_TYPE_LINK", 	5);
 	define("ELEMENT_TYPE_HTML", 	6);
+	define("ELEMENT_TYPE_SUBTITLE", 7);
 
 	class AdminController extends Core
 	{

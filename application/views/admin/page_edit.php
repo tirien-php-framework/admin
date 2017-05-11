@@ -64,6 +64,10 @@
 					echo '<textarea name="elements['.$element['id'].']" class="htmlEditor">'.$element['content'.$lang_sufix].'</textarea>';
 					break;
 
+					case ELEMENT_TYPE_SUBTITLE:
+					echo '<h2>'.$element['title'].'</h2>';
+					break;
+
 				}
 
 			} ?>
@@ -91,7 +95,8 @@
 					<option value="<?php echo ELEMENT_TYPE_IMAGE ?>">Image</option>
 					<option value="<?php echo ELEMENT_TYPE_LINK ?>">Link</option>
 					<option value="<?php echo ELEMENT_TYPE_HTML ?>">Html</option>
-				</select>				
+					<option value="<?php echo ELEMENT_TYPE_SUBTITLE ?>">Subtitle</option>
+				</select>
 			</div>
 
             <div class="cf"></div>
