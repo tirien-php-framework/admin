@@ -5,7 +5,6 @@
 	define("ELEMENT_TYPE_GALLERY", 	4);
 	define("ELEMENT_TYPE_LINK", 	5);
 	define("ELEMENT_TYPE_HTML", 	6);
-	define("ELEMENT_TYPE_SUBTITLE", 7);
 
 	class AdminController extends Core
 	{
@@ -44,52 +43,7 @@
 		}
 
 		public function indexAction(){
-			//
-		}
-
-		public function eventsAction(){
-			$event = new Model_Event();
-
-			if ( Router::$params[0] == "edit" ) {
-				$this->view->event = $event->find( Router::$params[1] );
-				
-				$this->setView("admin/event_edit.php");
 			
-			} elseif (Router::$params[0] == "update") {
-				if (empty($_POST['title'])) {
-					Alert::set('error', "Title is required");
-
-					Router::go("admin/events/edit/".Router::$params[1]);
-				} else {
-					$event->update(Router::$params[1], $_POST);
-
-					Router::go("admin/events");
-				}
-			
-			} elseif (Router::$params[0] == "delete") {
-				$event->delete(Router::$params[1]);
-
-				Router::go("admin/events");
-
-			} elseif (Router::$params[0] == "save") {
-
-				if (empty($_POST['title'])) {
-					Alert::set('error', "Title is required");
-
-					Router::go("admin/events/create");
-				} else {
-					
-					$event->create($_POST);
-					
-					Router::go("admin/events");
-				}
-
-			} elseif (Router::$params[0] == "create") {
-				$this->setView("admin/event_create.php");
-			
-			} else {
-				$this->view->events = $event->get();
-			}
 		}
 
 		public function pageAction(){
@@ -273,7 +227,7 @@
 		{
 			$db_config = array(
 				"type" => 'sqlite',
-				"file" => 'application/databases/leaddb.db'
+				"file" => 'application/databases/leads.db'
 				);
 			
 			DB::init($db_config);

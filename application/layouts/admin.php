@@ -92,9 +92,6 @@
 		<div class="header-menu cf">
 
 				<ul class="cf">
-					<!-- <li <?php echo Router::$action == "events" ? "class='active'" : ""  ?> >
-						<a href="admin/events">Event</a>
-					</li>  -->
 					<li <?php echo Router::$action == "page" ? "class='active'" : ""  ?> >
 						<a href="admin/page">Page</a>
 					</li>
