@@ -64,25 +64,28 @@
 			}
 
 			if( !empty($insert) ){
-				//PREPARE MAIL
-				$headers = "MIME-Version: 1.0\r\n";	
-				$headers .= "Content-type: text/html; charset=utf-8\r\n";
-				$headers .= "From: Website Mailer <noreply@website.com>\r\n";
+				//SEND MAIL
+				$options['to'][] = array('email' => 'info@EXAMPLE.com');
+				$options['from'] = array('name' => 'Website', 'email' => 'noreply@EXAMPLE.com');
 
-				$to = 'mladen@tirien.com';
-				$subject = 'Lead from Website';
-
-				$body = "<html><body>";
+				$options['subject'] = 'Lead from Website';
+				$options['body'] = '';
 
 				foreach ($_POST as $key => $value) {
-					$body .= "<b>" . str_replace("_", " ", ucfirst($key)) . ":</b> " . (!empty($value) ? $value : '/') . "<br>";
+					$options['body'] .= "<b>" . str_replace("_", " ", ucfirst($key)) . ":</b> " . (!empty($value) ? $value : '/') . "<br>";
 				}
+				
+				if( Mail::send($options) ){
+					$options['to'] = array();
+					$options['to'][] = array('email' => filter_var( $_POST['email'], FILTER_SANITIZE_EMAIL) );
+					$options['from'] = array('name' => 'Website', 'email' => 'noreply@EXAMPLE.com');
 
-				$body .= "</body></html>";
+					$options['subject'] = 'New lead';
+					$options['body'] = 'Thank you for contacting us. Our representative will contact you soon.';
 
-				//SEND MAIL
-				mail($to, $subject, $body, $headers);
-
+					Mail::send($options);
+				}
+				
 				return $this->ajax ? $this->msg_thankyou : Router::go('leads/thank-you');				
 			}
 			else{
