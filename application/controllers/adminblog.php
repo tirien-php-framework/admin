@@ -115,8 +115,8 @@
 							);
 						if ($_FILES[$key]['name'] != '') {
 
-							list( , $temp ) = explode('.', $_FILES[$key]['name']);
-							if ($temp != 'pdf') {
+							$temp = explode('.', $_FILES[$key]['name']);
+							if ($temp[count($temp) - 1] != 'pdf') {
 
 								$upload = Image::upload($key, "public/uploads/images");
 								
