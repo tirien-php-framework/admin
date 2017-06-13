@@ -1,5 +1,5 @@
 <div class="admin-header">
-	<h1>Edit Event</h1>
+	<h1>Edit Page SEO</h1>
 </div>
 
 <div class="admin-content">

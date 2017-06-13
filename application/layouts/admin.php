@@ -118,7 +118,7 @@
 						</ul>
 					</li>
 					<li <?php echo Router::$controller == "seo" ? "class='active'" : ""  ?> >
-						<a href="admin/seo">Seo</a>
+						<a href="admin/seo">SEO</a>
 					</li> 
 				</ul>
 

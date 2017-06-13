@@ -1,5 +1,5 @@
 <div class="admin-header">
-	<h1>Leads</h1>
+	<h1>Lead</h1>
 	<span class="last-update"></span>
 </div>
 

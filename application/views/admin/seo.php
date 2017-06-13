@@ -1,5 +1,5 @@
 <div class="admin-header">
-	<h1>Seo</h1>
+	<h1>SEO</h1>
 	<span class="last-update"></span>
 	<div class="button-wrap">
 		<a href="admin/seo/add" class="button right">Add Seo Page</a>
