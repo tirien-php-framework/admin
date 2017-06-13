@@ -78,9 +78,8 @@
 				if( Mail::send($options) ){
 					$options['to'] = array();
 					$options['to'][] = array('email' => filter_var( $_POST['email'], FILTER_SANITIZE_EMAIL) );
-					$options['from'] = array('name' => 'Website', 'email' => 'noreply@EXAMPLE.com');
 
-					$options['subject'] = 'New lead';
+					$options['subject'] = 'Thank you for contacting us';
 					$options['body'] = 'Thank you for contacting us. Our representative will contact you soon.';
 
 					Mail::send($options);
