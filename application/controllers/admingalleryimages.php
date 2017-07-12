@@ -190,8 +190,17 @@
 			}
 
 				$galleryimage->setParentId($galleryId);
-				$galleryimage->setThumb(isset($thumb) ? $thumb : '');
-				$galleryimage->setBlur(isset($blur) ? $blur : '');
+				
+				if (isset($thumb)) {
+					
+					$galleryimage->setThumb($thumb);
+				}
+
+				if (isset($blur)) {
+					
+					$galleryimage->setBlur($blur);
+				}
+
 				$galleryimage->setTitle($_POST['title']);
 				$galleryimage->setText($_POST['text']);
 				$galleryimage->save();
