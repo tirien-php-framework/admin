@@ -112,8 +112,6 @@
 				}
 			else {
 				$galleryimage = new Model_GalleryImage();
-				$thumb = "";
-				$blur = "";
 
 				if (!empty($_POST['delete_thumb']) && $_POST['delete_thumb'] == 1) {
 					$delete = unlink('public/'.$this->view->gallery['thumb']);
@@ -192,8 +190,8 @@
 			}
 
 				$galleryimage->setParentId($galleryId);
-				$galleryimage->setThumb($thumb);
-				$galleryimage->setBlur($blur);
+				$galleryimage->setThumb(isset($thumb) ? $thumb : '');
+				$galleryimage->setBlur(isset($blur) ? $blur : '');
 				$galleryimage->setTitle($_POST['title']);
 				$galleryimage->setText($_POST['text']);
 				$galleryimage->save();
