@@ -14,7 +14,7 @@
 
 		public function indexAction(){
 
-			$this->view->posts = $this->Blog->get();	
+			$this->view->posts = $this->Blog->getDesc();	
 			$this->view->comments = $this->BlogPostComment->get();	
 			$this->view->categories = $this->BlogCategory->get();	
 
