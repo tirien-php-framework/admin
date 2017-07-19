@@ -16,6 +16,9 @@
 		<label for="description">Description:</label>
 		<textarea name="description" class="htmlEditor" rows="15" data-page-name="description" data-page-id="new" id="editor-1"><?php echo $this->view->location['description'] ?></textarea>
 		
+		<label for="category">Category:</label>
+		<textarea name="category" class="htmlEditor" rows="15" data-page-name="category" data-page-id="new" id="editor-1"><?php echo $this->view->location['category'] ?></textarea>
+		
 		<div class="input-wrap">
 			<label>Adress:</label>
 			<input type="text" name="address" placeholder="Address for finding location" id="address" value="<?php echo $this->view->location['address'] ?>"/>
@@ -51,13 +54,13 @@
 
 		<label>Thumb Image</label>
 		<div class="file-input-wrap cf">
-			<?php if (!empty($this->view->location['thumb_image'])): ?>
-				<div class="small-image-preview" style="background-image: url(<?php echo $this->view->location['thumb_image']?>)"></div>
+			<?php if (!empty($this->view->location['thumb'])): ?>
+				<div class="small-image-preview" style="background-image: url(<?php echo $this->view->location['thumb']?>)"></div>
 				<input type="checkbox" name="delete_thumb_image" value="1">Delete this file?
 			<?php else: ?>
 				<div class="fileUpload">
 					<span>Choose file</span>
-					<input type="file" name="elements[thumb_image]"/>
+					<input type="file" name="elements[thumb]"/>
 				</div>
 			<?php endif ?>
 		</div>

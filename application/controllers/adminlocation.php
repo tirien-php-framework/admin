@@ -130,10 +130,10 @@
 									unset($_POST['delete_marker_image']);
 								}
 
-								if ($_POST['delete_thumb_image'] == 1 && !empty($this->view->location['thumb_image'])) {
+								if ($_POST['delete_thumb_image'] == 1 && !empty($this->view->location['thumb'])) {
 
-									$delete = unlink('public/'.$this->view->location['thumb_image']);
-									$_POST['thumb_image'] = "";
+									$delete = unlink('public/'.$this->view->location['thumb']);
+									$_POST['thumb'] = "";
 									unset($_POST['delete_thumb_image']);
 								}
 								else {

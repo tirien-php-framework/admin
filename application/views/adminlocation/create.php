@@ -15,7 +15,10 @@
 			<input type="text" name="url" placeholder="Url">
 			
 			<label for="description">Description:</label>
-			<textarea name="description" class="htmlEditor" rows="15" data-page-name="description" data-page-id="new" id="editor-1"></textarea>
+			<textarea name="description" class="htmlEditor" rows="15" data-page-name="description" data-page-id="new" id="editor-1"></textarea>			
+			
+			<label for="category">Category:</label>
+			<textarea name="category" class="htmlEditor" rows="15" data-page-name="category" data-page-id="new" id="editor-1"></textarea>
 					
 			<div class="input-wrap">
 				<label>Adress:</label>
@@ -50,7 +53,7 @@
 			<div class="file-input-wrap cf">
 				<div class="fileUpload">
 					<span>Choose file</span>
-					<input type="file" name="elements[thumb_image]"/>
+					<input type="file" name="elements[thumb]"/>
 				</div>
 			</div>
 
