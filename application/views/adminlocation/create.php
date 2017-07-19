@@ -11,12 +11,6 @@
 			<label for="title">Title:</label>
 			<input type="text" name="title" placeholder="Title">
 
-			<label for="url">Url:</label>
-			<input type="text" name="url" placeholder="Url">
-			
-			<label for="description">Description:</label>
-			<textarea name="description" class="htmlEditor" rows="15" data-page-name="description" data-page-id="new" id="editor-1"></textarea>			
-			
 			<label for="category">Category:</label>
 			<textarea name="category" class="htmlEditor" rows="15" data-page-name="category" data-page-id="new" id="editor-1"></textarea>
 					
@@ -41,6 +35,15 @@
 
 			<input type="hidden" id="mapImage"/>
 
+			<label for="description">Description:</label>
+			<textarea name="description" class="htmlEditor" rows="15" data-page-name="description" data-page-id="new" id="editor-1"></textarea>			
+			
+			<label for="phone">Phone:</label>
+			<input type="text" name="phone" placeholder="Phone">
+			
+			<label for="url">URL:</label>
+			<input type="text" name="url" placeholder="Url">
+			
 			<label>Image</label>
 			<div class="file-input-wrap cf">
 				<div class="fileUpload">

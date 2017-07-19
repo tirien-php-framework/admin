@@ -10,12 +10,6 @@
 		<label>Title</label>
 		<input type="text" name="title" placeholder="Location title" value="<?php echo $this->view->location['title'] ?>">
 
-		<label>Url</label>
-		<input type="text" name="url" placeholder="Url" value="<?php echo $this->view->location['url'] ?>">
-
-		<label for="description">Description:</label>
-		<textarea name="description" class="htmlEditor" rows="15" data-page-name="description" data-page-id="new" id="editor-1"><?php echo $this->view->location['description'] ?></textarea>
-		
 		<label for="category">Category:</label>
 		<textarea name="category" class="htmlEditor" rows="15" data-page-name="category" data-page-id="new" id="editor-1"><?php echo $this->view->location['category'] ?></textarea>
 		
@@ -38,6 +32,15 @@
 			<input type="text" name="zoom" id="zoom" placeholder="zoom" value="<?php echo $this->view->location['zoom'] ?>"/>
 
 		<input type="hidden" id="mapImage"/>
+
+		<label for="description">Description:</label>
+		<textarea name="description" class="htmlEditor" rows="15" data-page-name="description" data-page-id="new" id="editor-1"><?php echo $this->view->location['description'] ?></textarea>
+		
+		<label for="phone">Phone:</label>
+		<input type="text" name="phone" placeholder="Phone" value="<?php echo $this->view->location['phone'] ?>">
+
+		<label>URL</label>
+		<input type="text" name="url" placeholder="Url" value="<?php echo $this->view->location['url'] ?>">
 
 		<label>Image</label>
 		<div class="file-input-wrap cf">
