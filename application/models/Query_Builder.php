@@ -19,6 +19,11 @@ abstract class Query_Builder
 		return DB::query( "SELECT * FROM $this->table WHERE status=1");	
 	}
 
+	public function getDesc()
+	{
+		return DB::query( "SELECT * FROM $this->table WHERE status=1 ORDER BY created_at DESC");	
+	}
+	
 	public function all()
 	{
 		return DB::query( "SELECT * FROM $this->table");	

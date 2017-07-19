@@ -7,14 +7,14 @@
 		function init(){
 
 			$this->setLayout("admin");
-			$this->Blog = new Model_Blogpost();
-			$this->BlogPostComment = new Model_Blogpostcomment();
-			$this->BlogCategory = new Model_Blogcategory();
+			$this->Blog = new Model_BlogPost();
+			$this->BlogPostComment = new Model_BlogPostComment();
+			$this->BlogCategory = new Model_BlogCategory();
 		}
 
 		public function indexAction(){
 
-			$this->view->posts = $this->Blog->get();	
+			$this->view->posts = $this->Blog->getDesc();	
 			$this->view->comments = $this->BlogPostComment->get();	
 			$this->view->categories = $this->BlogCategory->get();	
 

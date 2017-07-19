@@ -7,9 +7,9 @@
 		function init(){
 
 			$this->setLayout("admin");
-			$this->Blog = new Model_Blogpost();
-			$this->BlogPostComment = new Model_Blogpostcomment();
-			$this->BlogCategory = new Model_Blogcategory();
+			$this->Blog = new Model_Blogost();
+			$this->BlogPostComment = new Model_BlogostComment();
+			$this->BlogCategory = new Model_BlogCategory();
 		}
 
 		public function indexAction(){
