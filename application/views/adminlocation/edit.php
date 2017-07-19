@@ -11,7 +11,7 @@
 		<input type="text" name="title" placeholder="Location title" value="<?php echo $this->view->location['title'] ?>">
 
 		<label for="category">Category:</label>
-		<textarea name="category" class="htmlEditor" rows="15" data-page-name="category" data-page-id="new" id="editor-1"><?php echo $this->view->location['category'] ?></textarea>
+		<input type="text" name="category" placeholder="Category"value="<?php echo $this->view->location['category'] ?>">
 		
 		<div class="input-wrap">
 			<label>Adress:</label>

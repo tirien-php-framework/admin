@@ -12,26 +12,24 @@
 			<input type="text" name="title" placeholder="Title">
 
 			<label for="category">Category:</label>
-			<textarea name="category" class="htmlEditor" rows="15" data-page-name="category" data-page-id="new" id="editor-1"></textarea>
+			<input type="text" name="category" placeholder="Category">
 					
-			<div class="input-wrap">
-				<label>Adress:</label>
-				<input type="text" name="address" placeholder="Address for finding location" id="address"/>
+			<label>Adress:</label>
+			<input type="text" name="address" placeholder="Address for finding location" id="address"/>
 
 			<div id="locate" class="button dark item">Locate</div>
 
 			<div class="static-map-wrap" style="height: auto;z-index: 1;">
-				<div id="map" style="width: 100%;min-height: 300px;margin-bottom: 24px;"></div>								
 			</div>
 
 			<label for="latitude">Latitude:</label>
-				<input type="text" name="latitude" placeholder="Latitude" id="latitude" />
+			<input type="text" name="latitude" placeholder="Latitude" id="latitude" />
 
 			<label for="longitude">Longitude:</label>
-				<input type="text" name="longitude" placeholder="Longitude" id="longitude" />
+			<input type="text" name="longitude" placeholder="Longitude" id="longitude" />
 
-			<label for="longitude">Zoom:</label>
-				<input type="text" name="zoom" id="zoom" placeholder="zoom" />
+			<label for="zoom">Zoom:</label>
+			<input type="text" name="zoom" id="zoom" placeholder="zoom" value="13" />
 
 			<input type="hidden" id="mapImage"/>
 
