@@ -5,7 +5,7 @@
 		<title>Admin Login</title>
 		
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<link href="public/css/admin/admin.css" type="text/css" rel="stylesheet" />
+		<link href="public/css/admin/login.css" type="text/css" rel="stylesheet" />
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 
 	</head>

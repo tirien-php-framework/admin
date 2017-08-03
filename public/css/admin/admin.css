@@ -2991,6 +2991,16 @@ div.opened-menu {
   margin: auto;
   vertical-align: top;
 }
+
+.seo-admin-content ul li a {
+    padding: 0 20px 15px;
+}
+.seo-admin-content ul li small {
+    padding: 15px 20px 5px;
+	display: block;
+	font-size: 10px;
+}
+
 @media only screen and (max-width: 1024px) {
   .one-box {
     display: block;
