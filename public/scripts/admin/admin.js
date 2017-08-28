@@ -29147,11 +29147,12 @@ function readImageFromInput(input) {
         var reader = new FileReader();
         
         reader.onload = function (e) {
-        	$(input).parent().parent().find('.small-image-preview').remove();
-        	$(input).parent().parent().find('[type=checkbox]').remove();
-        	$(input).parent().parent().find('label').remove();
-            $(input).parent().parent().append('<div class="small-image-preview" style="background-image: url('+e.target.result+')"></div>');
-            $(input).parent().parent().append('<label>Keep original size: 	<input type="checkbox" name="original_size[]" value="'+$(input).attr('name')+'"></label>');
+        	var image = new Image();
+        	image.width = 200;
+
+        	image.src = e.target.result;
+            $(input).parent().parent().find('.items-order').find('img').remove();
+            $(input).parent().parent().find('.items-order').append(image);
         }
         
         reader.readAsDataURL(input.files[0]);
@@ -85151,6 +85152,7 @@ jQuery(document).ready(function($) {
         }
         return true;
     });
+	$('.loader').fadeOut();
 });
 
 function myFunction(x) {
