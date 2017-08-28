@@ -307,12 +307,12 @@ body {
   box-sizing: border-box;
 }
 .login-form form input[type="email"] {
-  background-image: url('../images/icon-at.png');
+  background-image: url('../../images/admin/icon-at.png');
   background-position: 10px center;
   background-repeat: no-repeat;
 }
 .login-form form input[type="password"] {
-  background-image: url('../images/icon-lock.png');
+  background-image: url('../../images/admin/icon-lock.png');
   background-position: 10px center;
   background-repeat: no-repeat;
 }
@@ -446,7 +446,7 @@ body {
   color: #fff;
   box-sizing: border-box;
   padding: 16px;
-  background: #979797 url("../images/delete.png") no-repeat 95% 50%;
+  background: #979797 url("../../images/admin/delete.png") no-repeat 95% 50%;
   vertical-align: top;
 }
 .button.remove-item.file {
@@ -474,7 +474,7 @@ body {
   padding: 3px 3px 3px 5px;
 }
 .button.remove-item:hover {
-  background: #E91A40 url("../images/delete.png") no-repeat 95% 50%;
+  background: #E91A40 url("../../images/admin/delete.png") no-repeat 95% 50%;
 }
 .button.save-item {
   text-align: left;
@@ -482,7 +482,7 @@ body {
   color: #fff;
   box-sizing: border-box;
   padding: 16px;
-  background: #4A4A4A url("../images/save.png") no-repeat 95% 50%;
+  background: #4A4A4A url("../../images/admin/save.png") no-repeat 95% 50%;
 }
 @media only screen and (max-width: 1024px) {
   .button.save-item + .remove-item {
@@ -491,7 +491,7 @@ body {
   }
 }
 .button.save-item:hover {
-  background: #7ED321 url("../images/save.png") no-repeat 95% 50%;
+  background: #7ED321 url("../../images/admin/save.png") no-repeat 95% 50%;
 }
 .button.item {
   text-align: left;

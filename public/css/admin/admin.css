@@ -1632,7 +1632,7 @@ body {
   color: #fff;
   box-sizing: border-box;
   padding: 16px;
-  background: #979797 url("../images/delete.png") no-repeat 95% 50%;
+  background: #979797 url("../../images/admin/delete.png") no-repeat 95% 50%;
   vertical-align: top;
 }
 .button.remove-item.file {
@@ -1660,7 +1660,7 @@ body {
   padding: 3px 3px 3px 5px;
 }
 .button.remove-item:hover {
-  background: #E91A40 url("../images/delete.png") no-repeat 95% 50%;
+  background: #E91A40 url("../../images/admin/delete.png") no-repeat 95% 50%;
 }
 .button.save-item {
   text-align: left;
@@ -1669,7 +1669,7 @@ body {
   color: #fff;
   box-sizing: border-box;
   padding: 16px;
-  background: #4A4A4A url("../images/save.png") no-repeat 95% 50%;
+  background: #4A4A4A url("../../images/admin/save.png") no-repeat 95% 50%;
 }
 @media only screen and (max-width: 1024px) {
   .button.save-item + .remove-item {
@@ -1678,7 +1678,7 @@ body {
   }
 }
 .button.save-item:hover {
-  background: #7ED321 url("../images/save.png") no-repeat 95% 50%;
+  background: #7ED321 url("../../images/admin/save.png") no-repeat 95% 50%;
 }
 .button.item {
   text-align: left;
@@ -1699,7 +1699,7 @@ body {
   box-sizing: border-box;
   width: 100%;
   background-color: #eee;
-  background-image: url(../images/back.png);
+  background-image: url(../../images/admin/back.png);
   background-position: 95% center;
   background-size: 10%;
   background-repeat: no-repeat;
@@ -1708,7 +1708,7 @@ body {
 }
 .button.back-button:hover {
   background-color: #7ED321;
-  background-image: url(../images/back.png);
+  background-image: url(../../images/admin/back.png);
   background-position: 95% center;
   background-size: 10%;
   background-repeat: no-repeat;
@@ -1771,7 +1771,7 @@ input[type='submit'].remove-item {
   color: #fff;
   box-sizing: border-box;
   padding: 16px;
-  background: #979797 url("../images/delete.png") no-repeat 95% 50%;
+  background: #979797 url("../../images/admin/delete.png") no-repeat 95% 50%;
   vertical-align: top;
 }
 input[type='submit'].remove-item.file {
@@ -1799,7 +1799,7 @@ input[type='submit'].remove-item.file.list {
   padding: 3px 3px 3px 5px;
 }
 input[type='submit'].remove-item:hover {
-  background: #E91A40 url("../images/delete.png") no-repeat 95% 50%;
+  background: #E91A40 url("../../images/admin/delete.png") no-repeat 95% 50%;
 }
 input[type='submit'].save-item {
   text-align: left;
@@ -1808,7 +1808,7 @@ input[type='submit'].save-item {
   color: #fff;
   box-sizing: border-box;
   padding: 16px;
-  background: #4A4A4A url("../images/save.png") no-repeat 95% 50%;
+  background: #4A4A4A url("../../images/admin/save.png") no-repeat 95% 50%;
 }
 @media only screen and (max-width: 1024px) {
   input[type='submit'].save-item + .remove-item {
@@ -1817,7 +1817,7 @@ input[type='submit'].save-item {
   }
 }
 input[type='submit'].save-item:hover {
-  background: #7ED321 url("../images/save.png") no-repeat 95% 50%;
+  background: #7ED321 url("../../images/admin/save.png") no-repeat 95% 50%;
 }
 input[type='submit'].item {
   text-align: left;
@@ -1838,7 +1838,7 @@ input[type='submit'].back-button {
   box-sizing: border-box;
   width: 100%;
   background-color: #eee;
-  background-image: url(../images/back.png);
+  background-image: url(../../images/admin/back.png);
   background-position: 95% center;
   background-size: 10%;
   background-repeat: no-repeat;
@@ -1847,7 +1847,7 @@ input[type='submit'].back-button {
 }
 input[type='submit'].back-button:hover {
   background-color: #7ED321;
-  background-image: url(../images/back.png);
+  background-image: url(../../images/admin/back.png);
   background-position: 95% center;
   background-size: 10%;
   background-repeat: no-repeat;
@@ -1936,14 +1936,14 @@ form input {
   color: #fff;
   box-sizing: border-box;
   padding: 16px;
-  background: #979797 url("../images/upload.png") no-repeat 95% 50%;
+  background: #979797 url("../../images/admin/upload.png") no-repeat 95% 50%;
 }
 .fileUpload:hover {
   color: #fff;
   background: #555;
 }
 .fileUpload:hover {
-  background: #7ED321 url("../images/upload.png") no-repeat 95% 50%;
+  background: #7ED321 url("../../images/admin/upload.png") no-repeat 95% 50%;
 }
 .fileUpload span {
   font-weight: normal;
@@ -2150,7 +2150,7 @@ header .header-menu li.logout:before {
   top: 50%;
   margin-top: -8px;
   position: absolute;
-  background-image: url("../images/logout.png");
+  background-image: url("../../images/admin/logout.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -2166,7 +2166,7 @@ header .header-menu li.settings:before {
   top: 50%;
   margin-top: -8px;
   position: absolute;
-  background-image: url("../images/settings.png");
+  background-image: url("../../images/admin/settings.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -2739,7 +2739,7 @@ header .header-menu li.settings a {
 }
 .star {
   display: inline-block;
-  background: url(../images/star.png) no-repeat bottom;
+  background: url(../../images/admin/star.png) no-repeat bottom;
   width: 31px;
   height: 30px;
   padding: 0 3px;
@@ -2818,7 +2818,7 @@ header .header-menu li.settings a {
   overflow: hidden;
   background-color: #fff;
   margin-bottom: 10px;
-  background: #4A4A4A url("../images/arrow-down.png") no-repeat 95% 50%;
+  background: #4A4A4A url("../../images/admin/arrow-down.png") no-repeat 95% 50%;
   float: left;
   cursor: pointer;
   margin-bottom: 20px;
@@ -2826,7 +2826,7 @@ header .header-menu li.settings a {
   transition: all 400ms;
 }
 .select-style:hover {
-  background: #7ED321 url("../images/arrow-down.png") no-repeat 95% 50%;
+  background: #7ED321 url("../../images/admin/arrow-down.png") no-repeat 95% 50%;
 }
 .select-style select {
   padding: 14px;
