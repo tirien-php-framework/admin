@@ -29,7 +29,7 @@
 				// $new_user = $u->createUser($_POST);
 
 			if (!empty($_POST['username']) && isset($_POST['password']) && Auth::login( $_POST['username'], $_POST['password'])) { 
-				Header("Location: ".Path::urlBase('admin'));
+				Header("Location: ".Path::urlBase('admin/page'));
 				
 				die();
 			} else {
@@ -508,11 +508,11 @@
 						Alert::set("error","Error saving");
 					}
 
-					Router::go("admin/seo");
+					Router::go("admin/seo/edit/".$id);
 
 				}
 				else {
-					Router::go("admin/seo");
+					Router::go("admin/seo/edit/".$id);
 				}
 			}
 		}		
