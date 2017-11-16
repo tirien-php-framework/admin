@@ -7,8 +7,8 @@
 		function init(){
 
 			$this->setLayout("admin");
-			$this->Blog = new Model_Blogost();
-			$this->BlogPostComment = new Model_BlogostComment();
+			$this->Blog = new Model_BlogPost();
+			$this->BlogPostComment = new Model_BlogPostComment();
 			$this->BlogCategory = new Model_BlogCategory();
 		}
 

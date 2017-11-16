@@ -180,8 +180,9 @@ form label {
   font-family: 'HelveticaNeue-Medium', sans-serif;
   font-weight: normal;
   line-height: 18px;
-  text-transform: uppercase;
   margin-bottom: 2px;
+  text-align: left;
+  letter-spacing: 0.5px;
 }
 form input {
   height: 46px;
@@ -191,6 +192,7 @@ form input {
   margin-bottom: 14px;
   border-radius: 3px;
   background-clip: padding-box;
+  outline: none;
 }
 form textarea {
   width: 100%;
@@ -206,13 +208,22 @@ form textarea {
   outline: none;
 }
 .button {
-  font-size: 16px;
-  color: #fff;
-  font-family: "HelveticaNeue-Medium", sans-serif;
-  margin-right: 8px;
-  margin-left: 8px;
-  text-align: center;
   cursor: pointer;
+  font-family: 'HelveticaNeue', sans-serif;
+  font-weight: normal;
+  transition: all 400ms;
+  text-align: center;
+  width: 100%;
+  max-width: 160px;
+  box-sizing: border-box;
+  font-size: 14px;
+  letter-spacing: 0.8px;
+  padding: 12px 16px;
+  background: #4285f4;
+  box-shadow: 0 1px 0 rgba(0,0,0,.05);
+  border: 1px solid transparent;
+  color: #fff;
+  font-weight: bold;
 }
 @media only screen and (max-width: 380px) {
   .button {
@@ -255,15 +266,35 @@ form textarea {
 body {
   background: #f2f2f4;
 }
+
+.login-wrap{
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+}
+.login-form-wrap{
+  width: 35%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+}
 .logo-login {
   width: 100%;
   text-align: center;
-  padding-top: 36px;
   box-sizing: border-box;
+  margin-bottom: 40px;
 }
 .logo-login img {
   width: 100%;
-  max-width: 265px;
+  max-width: 200px;
+}
+.login-background{
+  width: 65%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .login-form {
   width: 100%;
@@ -271,9 +302,6 @@ body {
   margin: auto;
   text-align: center;
   position: relative;
-  top: 40%;
-  -webkit-transform: translateY(-100%);
-          transform: translateY(-100%);
   padding-left: 20px;
   padding-right: 20px;
   box-sizing: border-box;
@@ -295,12 +323,12 @@ body {
   height: 46px;
   padding: 0;
   line-height: 16px;
-  padding-left: 42px;
+  padding-left: 34px;
   margin-bottom: 10px;
   font-size: 14px;
   font-family: 'HelveticaNeue', sans-serif;
   color: #4a4a4a;
-  background-color: rgba(254, 254, 254, 0.6);
+  background-color: #fff;
   border: solid 1px #b7bbc0;
   border-radius: 3px;
   background-clip: padding-box;
@@ -315,6 +343,7 @@ body {
   background-image: url('../../images/admin/icon-lock.png');
   background-position: 10px center;
   background-repeat: no-repeat;
+  background-size: 14px;
 }
 .login-form form ::-webkit-input-placeholder {
   color: #4a4a4a;
@@ -331,7 +360,7 @@ body {
   color: #4a4a4a;
 }
 .login-form form button {
-  margin-top: 5px;
+  margin-top: 15px;
 }
 .login-form a {
   font-size: 12px;
@@ -426,18 +455,22 @@ body {
   color: #007a4d;
 }
 .button {
-  border: none;
-  border-radius: 0px;
-  padding: 10px;
-  color: #4A4A4A;
-  background: #ddd;
   cursor: pointer;
-  min-width: 100px;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 14px;
-  line-height: 15px;
+  font-family: 'HelveticaNeue', sans-serif;
   font-weight: normal;
   transition: all 400ms;
+  text-align: center;
+  width: 100%;
+  max-width: 160px;
+  box-sizing: border-box;
+  font-size: 13px;
+  padding: 10px 20px;
+  background: #4285f4;
+  box-shadow: 0 1px 0 rgba(0,0,0,.05);
+  border: 1px solid transparent;
+  color: #fff;
+  font-weight: normal;
+  border-radius: 6px;
 }
 .button.remove-item {
   display: inline-block;
@@ -473,9 +506,6 @@ body {
   width: 70px;
   padding: 3px 3px 3px 5px;
 }
-.button.remove-item:hover {
-  background: #E91A40 url("../../images/admin/delete.png") no-repeat 95% 50%;
-}
 .button.save-item {
   text-align: left;
   width: 290px;
@@ -490,9 +520,6 @@ body {
     margin-right: 0;
   }
 }
-.button.save-item:hover {
-  background: #7ED321 url("../../images/admin/save.png") no-repeat 95% 50%;
-}
 .button.item {
   text-align: left;
   width: 290px;
@@ -502,7 +529,10 @@ body {
   margin: 0 0 10px 0;
   background: #4A4A4A;
 }
-.button:hover {
-  color: #fff;
-  background: #7ED321;
+.reset-link {
+  color: #fff !important;
+  font-size: 13px !important;
+  font-family: 'HelveticaNeue', sans-serif !important;
+  margin-top: 20px !important;
+  display: inline-block;
 }

@@ -25,14 +25,35 @@
 		function loginAction(){
 			$this->setLayout("login");
 
-				// $u = new Model_User();
-				// $new_user = $u->createUser($_POST);
+			if (!isset($_SESSION['login'])) {
+				$_SESSION['login']['lock_login'] = 0; 
+				$_SESSION['login']['forgot_password'] = 0;
+			}
 
-			if (!empty($_POST['username']) && isset($_POST['password']) && Auth::login( $_POST['username'], $_POST['password'])) { 
-				Header("Location: ".Path::urlBase('admin/page'));
-				
+			// $u = new Model_User();
+			// $new_user = $u->createUser($_POST);
+			// vd($new_user,1);
+
+			// LOCK LOGIN
+			if ($_SESSION['login']['lock_login'] >= 5) {
 				die();
-			} else {
+			}
+
+			if ( 
+				!empty($_POST['username']) && 
+				isset($_POST['password']) && 
+				Auth::login( $_POST['username'], $_POST['password'] )
+			) { 
+				$_SESSION['login']['lock_login'] = 0;
+				$_SESSION['login']['forgot_password'] = 0;
+
+				Header("Location: ".Path::urlBase('admin'));
+				die();
+			}
+			else {
+				$_SESSION['login']['lock_login'] ++;
+				$_SESSION['login']['forgot_password'] ++;
+
 				$this->view->error = "bad login";
 			}
 		}
