@@ -38,6 +38,11 @@
                             <input type="password" name="password" id="password">
 
                         </div>
+                        <div class="form-group">
+                            <label>Remember me</label>
+                            <input type="checkbox" name="remember_me" >
+
+                        </div>
 
                         <?php if (isset($_SESSION['login']['forgot_password']) && $_SESSION['login']['forgot_password'] >= 3): ?>
                             <a href="admin-forgot-password" class="button full-button reset-link">Forgot password</a>

@@ -34,16 +34,18 @@ Class Model_User extends Query_Builder
 
 		if( !empty($data['username']) && !empty($data['password']) ) {
 			
-			$set['password_hash'] = Auth::hash( $data['password'] );
-			return DB::update("user", $set, array("username" => $data['username']));
+			Auth::logout();
 
+			$set['password_hash'] = Auth::hash( $data['password'] );
+			
+			$set['remember_me_token'] = null;
+			$set['remember_me_ip'] = null;
+
+			return DB::update("user", $set, array("username" => $data['username']));
 		}
 		else{
-
 			return false;
-
 		}
-
 	}
 	
 }
