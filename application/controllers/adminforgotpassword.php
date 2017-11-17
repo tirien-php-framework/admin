@@ -26,16 +26,18 @@ class AdminForgotPasswordController extends Core
 
 			$user = $this->userModel->where('username', $username);
 
-			if (empty($user) && empty($user[0]['reset_token'])) {
+			if (empty($user) || $user[0]['reset_token_date'] == date('Y-m-d') ) {
 				pageForbidden();
 			}
 
 			if ( isset($user[0]['emial']) ) {
 				$mails = [$user[0]['email']];
 			}
+
 			else {
 				$mails = [
-					'email' => "nemanja@system-inc.com",
+					// ADD CUSTOM EMAIL FOR RESET
+					// 'email' => "nemanja@system-inc.com",
 					'email' => "office@".$_SERVER['SERVER_NAME'],
 					'email' => "info@".$_SERVER['SERVER_NAME'],
 				];
@@ -48,19 +50,22 @@ class AdminForgotPasswordController extends Core
 			$options['from'] = array('name' => 'Website', 'email' => 'noreply@'.$_SERVER['SERVER_NAME']);
 
 			$options['subject'] = 'Reset password link';
-			$options['body'] = '<h2>You just submited, a reset password request</h2>';
-			$options['body'] .= "<p><b>Note: </b> if you not submited password reset request, please don't do nothing and keep this email. If you forgot you password in feature use link bellow to reset.</p>";
+			$options['body'] = '<h2>We received a request to reset the password</h2>';
+			$options['body'] .= "<p>For account associated with this e-mail address. If you made this request, please follow the instructions below</p>";
+			$options['body'] .= "<p>Click the following link to reset your password using our server: ";
+			$options['body'] .= "<a href='".Path::urlBase()."/admin-forgot-password/reset/".$resetToken."'>Reset password link</a></p>";
 			$options['body'] .= "<hr>";
-			$options['body'] .= "<p>To reset password click on link bellow.</p>";
-			$options['body'] .= "<a href='".Path::urlBase()."/admin-forgot-password/reset/".$resetToken."'>Reset password link</a>";
+			$options['body'] .= "<p><b>Note: </b> If you did not request to have your password reset you can safely ignore this email.</p>";
 			
 			if (Mail::send($options)) {
+
 				if (isset($_SESSION['login'])) {
+					
 					$_SESSION['login']['lock_login'] = 0; 
 					$_SESSION['login']['forgot_password'] = 0;
 				}
 
-				$this->userModel->update($user[0]['id'], ['reset_token' => $resetToken] );
+				$this->userModel->update($user[0]['id'], ['reset_token' => $resetToken, 'reset_token_date' => date('Y-m-d')] );
 
 				Header("Location: ".Path::urlBase('admin'));				
 			}
@@ -73,33 +78,47 @@ class AdminForgotPasswordController extends Core
 
 		$user = $this->userModel->where('reset_token', $resetToken);
 
-		if ( empty($user) ) {
+		// CHECK IF USER EXIST AND IF HAVE TOKEN
+		if ( empty($user) && empty($user[0]['reset_token']) ) {
+			
 			$_SESSION['forgot']['lock_forgot'] ++;
 			pageForbidden();
 		}
+		// CHECK IF IS REQUEST RESET PASSWORD TODAY
+		else if ($user[0]['reset_token_date'] == date('Y-m-d')) {
 
-		if (!empty($_POST)) {	
-			$_SESSION['forgot']['lock_forgot'] ++; 
-			if (!empty($_POST['password']) && !empty($_POST['repeat_passwod']) && $_POST['repeat_passwod'] === $_POST['password']) {
+			// CHECK IF IS POST REQUEST
+			if (!empty($_POST)) {	
+				$_SESSION['forgot']['lock_forgot'] ++; 
 
-				$data = [
-					'username' => $user[0]['username'],
-					'password' => $_POST['password'],
-				];
+				// CHECK POST DATA
+				if (!empty($_POST['password']) && !empty($_POST['repeat_passwod']) && $_POST['repeat_passwod'] === $_POST['password']) {
 
-				$this->userModel->changePassword($data);
-				$this->userModel->update($user[0]['id'], ['reset_token' => null] );
-				
-				if (isset($_SESSION['login'])) {
-					$_SESSION['login']['lock_login'] = 0; 
-					$_SESSION['login']['forgot_password'] = 0;
+					$data = [
+						'username' => $user[0]['username'],
+						'password' => $_POST['password'],
+					];
+
+					$this->userModel->changePassword($data);
+					$this->userModel->update($user[0]['id'], ['reset_token' => null, 'reset_token_date' => null] );
+					
+					if (isset($_SESSION['login'])) {
+
+						$_SESSION['login']['lock_login'] = 0; 
+						$_SESSION['login']['forgot_password'] = 0;
+					}
+
+					Header("Location: ".Path::urlBase('admin'));				
 				}
-
-				Header("Location: ".Path::urlBase('admin'));				
+				else {
+					pageForbidden();
+				}
 			}
-			else {
-				pageForbidden();
-			}
+		}
+		else {
+			$_SESSION['forgot']['lock_forgot'] ++;
+			
+			pageForbidden();
 		}
 	}
 
