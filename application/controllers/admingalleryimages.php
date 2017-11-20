@@ -111,12 +111,22 @@
 
 				}
 			else {
+				$Gallery = new Model_Gallery();
 				$galleryimage = new Model_GalleryImage();
+				
+				$imageId = isset(Router::$params[1]) ? Router::$params[1] : null ;
 
+				$this->view->gallery = $Gallery->getGallery(Router::$params[0]);
+				
+				$galleryimage->load($imageId);
+				$this->view->galleryimage = $galleryimage;
+
+				
 				if (!empty($_POST['delete_thumb']) && $_POST['delete_thumb'] == 1) {
-					$delete = unlink('public/'.$this->view->gallery['thumb']);
+					$delete = unlink($this->view->galleryimage->getThumb());
 
-					$_POST['thumb'] = "";
+					$this->view->galleryimage->setThumb(null);
+					$this->view->galleryimage->save();
 					unset($_POST['delete_thumb']);
 				}
 				else {
@@ -124,9 +134,10 @@
 				}
 
 				if (!empty($_POST['delete_blur']) && $_POST['delete_blur'] == 1) {
-					$delete = unlink('public/'.$this->view->gallery['blur']);
+					$delete = unlink($this->view->galleryimage->getBlur());
 
-					$_POST['blur'] = "";
+					$this->view->galleryimage->setBlur(null);
+					$this->view->galleryimage->save();
 					unset($_POST['delete_blur']);
 				}
 				else {

@@ -21,7 +21,7 @@
 		<textarea name="excerpt" rows="5"><?php echo $this->view->post['excerpt'] ?></textarea>
 
 		<label>Content</label>
-		<textarea name="content" class="htmlEditor" rows="15" data-page-name="blog" data-page-id="<?php echo $this->view->post['id'] ?>" id="editor-<?php echo  str_replace('.', '', $this->view->post['id'])  ?>"><?php echo $this->view->post['content'] ?></textarea>
+		<textarea name="content" class="htmlEditor" rows="15" data-page-name="blog" data-page-id="<?php echo !empty($this->view->post['id']) ? $this->view->post['id'] : 'new' ?>" id="editor-<?php echo  str_replace('.', '', !empty($this->view->post['id']) ? $this->view->post['id'] : 'new')  ?>"><?php echo $this->view->post['content'] ?></textarea>
 
 		<div class="cf">
 			<label>Blog Category</label>

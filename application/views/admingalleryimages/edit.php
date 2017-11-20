@@ -41,7 +41,7 @@
 					<?php endif ?>
 				</div>				
 
-				<label>Blur</label>
+				<!-- <label>Blur</label>
 				<div class="file-input-wrap cf">
 					<?php if(!empty($this->view->galleryimage->getBlur())): ?>
 						<div class="small-image-preview" style="background-image: url(<?php echo $this->view->galleryimage->getBlur() ?>)"></div>
@@ -52,7 +52,7 @@
 							<input type="file" name="elements[blur]"/>
 						</div>
 					<?php endif ?>
-				</div>
+				</div> -->
 							
 				<label>Text</label>
 				<textarea name="text"><?php echo (isset($this->view->galleryimage)) ? $this->view->galleryimage->getText() : '' ?></textarea>
@@ -73,24 +73,24 @@
 			<label>Visible</label><input name="visible" type="checkbox" <?php echo (isset($this->view->galleryimage)) && $this->view->galleryimage->getVisible() ? 'checked' : '' ?>>
 				
 		-->
+		<?php if (!isset($this->view->galleryimage)): ?> 
 			<div class="action-wrap cf">
-				<button class="button submit-auto-crop save-item">Save with automatic crop</button>
-				<button class="button submit-manual-crop save-item">Save with manual crop</button>
+				<button class="button submit-auto-crop save-item long-button">Save with automatic crop</button>
+				<button class="button submit-manual-crop save-item long-button">Save with manual crop</button>
 			</div>
+		<?php endif ?>
 
 			<br><br>
 
 			<div class="action-wrap cf">
-				<a href="admin-gallery/edit/<?php echo $this->view->galleryId ?>" class="button remove-item">back to gallery</a>
+				<a href="admin-gallery/edit/<?php echo $this->view->galleryId ?>" class="button back-button">Back to Gallery</a>
 				<?php if (isset($this->view->galleryimage)): ?> 
-					<button type="submit" class="button save-item">Save</button>
+					<button type="submit" class="button save-item long-button">Save</button>
 				<?php endif ?>
 			</div>
 	
 	</form>
 </div>
-
-<script src='public/admin/js/jscolor.min.js'></script>
 
 <script type="text/javascript">
 	

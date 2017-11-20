@@ -18,7 +18,7 @@
 		<textarea name="excerpt" class="htmlEditorTools" rows="5"><?php echo $this->view->category['excerpt'] ?></textarea>
 
 		<label>Description</label>
-		<textarea name="description" class="htmlEditor" rows="15" data-page-name="category" data-page-id="<?php echo $this->view->category['id'] ?>" id="editor-<?php echo  str_replace('.', '', $this->view->category['id'])  ?>"><?php echo $this->view->category['description'] ?></textarea>
+		<textarea name="description" class="htmlEditor" rows="15" data-page-name="category" data-page-id="<?php echo !empty($this->view->category['id']) ? $this->view->category['id'] : 'new' ?>" id="editor-<?php echo  str_replace('.', '', !empty($this->view->category['id']) ? $this->view->category['id'] : 'new')  ?>"><?php echo $this->view->category['description'] ?></textarea>
 
 		<label>Thumbnail</label>
 		<div class="file-input-wrap cf">
