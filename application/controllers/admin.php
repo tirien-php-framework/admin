@@ -20,7 +20,6 @@
 		}
 
 		function loginAction(){
-			global $_config;
 			$this->setLayout("login");
 
 			if (!isset($_SESSION['login'])) {
@@ -32,66 +31,34 @@
 			// $new_user = $u->createUser($_POST);
 			// vd($new_user,1);
 
-			// LOCK LOGIN
-			if ($_SESSION['login']['lock_login'] >= 5) {
-				die();
-			}
-
 			$userModel = new Model_User();
 
-			// CHECK REMEMBER ME
-			if (isset($_COOKIE["Remember_me_".$_SERVER['SERVER_NAME']])) {
-				$user = $userModel->where('remember_me_token', $_COOKIE["Remember_me_".$_SERVER['SERVER_NAME']]);
+			if (!empty($_POST)) {
+				// CHECK LOGIN
+				if (!empty($_POST['username']) && isset($_POST['password']) && Auth::login( $_POST['username'], $_POST['password'], @$_POST['remember_me'] )) { 
 
-				if (!empty($user) && $user[0]['remember_me_ip'] == $_SERVER['REMOTE_ADDR']) {
-					// FIRE LOGIN TO ADMIN
-					$_SESSION['AuthLib_user_data_'.md5($_config['application']['salt'])] = $_COOKIE["Remember_me_".$_SERVER['SERVER_NAME'] ];
+					$_SESSION['login']['lock_login'] = 0;
+					$_SESSION['login']['forgot_password'] = 0;
 
 					Header("Location: ".Path::urlBase('admin'));
 					die();
 				}
-			}
+				else {
+					// LOCK LOGIN
+					if ($_SESSION['login']['lock_login'] >= 5) {
+						die();
+					}
+					
+					$_SESSION['login']['lock_login'] ++;
+					$_SESSION['login']['forgot_password'] ++;
 
-			// CHECK LOGIN
-			if (!empty($_POST['username']) && isset($_POST['password']) && Auth::login( $_POST['username'], $_POST['password'] )) { 
-
-				$_SESSION['login']['lock_login'] = 0;
-				$_SESSION['login']['forgot_password'] = 0;
-
-				// CHECK IF REQUESTED REMEMBER ME
-				if ($_POST['remember_me']) {
-					$user = $userModel->where('username', $_POST['username']);
-
-					$rememberMeToken = substr(md5(rand()), 0, 60);
-
-					$data = [
-						'remember_me_token' => $rememberMeToken,
-						'remember_me_ip' => $_SERVER['REMOTE_ADDR'],
-					];
-
-					setcookie("Remember_me_".$_SERVER['SERVER_NAME'], $rememberMeToken, time() + (86400 * 5), "/"); // EXPIRE IN 5 DAYS
-
-					$userModel->update($user[0]['id'], $data);
+					$this->view->error = "bad login";
 				}
-				
-				Header("Location: ".Path::urlBase('admin'));
-				die();
-			}
-			else {
-				$_SESSION['login']['lock_login'] ++;
-				$_SESSION['login']['forgot_password'] ++;
-
-				$this->view->error = "bad login";
 			}
 		}
 
 		function logoutAction(){
 			Auth::logout();
-			
-			// CHECK IF COOKIE EXIST TO REMOVE
-			if (isset($_COOKIE["Remember_me_".$_SERVER['SERVER_NAME']])) {
-				setcookie("Remember_me_".$_SERVER['SERVER_NAME'], "", time() - 3600, '/'); // DELETE COOKIE
-			}
 
 			Header("Location: ".Path::urlBase('admin'));
 			die();

@@ -12,9 +12,12 @@ class Auth{
 	private static $loginPageUrl;
 	private static $return_as_array;
 	private static $session_var_name;
+	private static $config;
 
 	static function init(){
 		global $_config;
+
+		self::$config = $_config;
 		
 		// customize options self
 		self::$entity_object = new Model_User();
@@ -22,7 +25,7 @@ class Auth{
 		self::$entity_secure_get_method = 'getUser';
 		self::$loginPageUrl = Path::urlBase('admin/login');
 		self::$return_as_array = true;
-		self::$session_var_name = 'AuthLib_user_data_'.md5($_config['application']['salt']);
+		self::$session_var_name = 'AuthLib_user_data_'.md5(self::$config['application']['salt']);
 	}
 
 	/**
@@ -30,9 +33,8 @@ class Auth{
 	 * @param string $password
 	 * @return boolan
 	 */
-	static function login( $username, $password )
+	static function login( $username, $password, $remember_me = false )
 	{
-		// todo:remember me funtionality
 		if( isset($username) && isset($password) ){
 		
 			$data['username'] = $username;
@@ -41,27 +43,22 @@ class Auth{
 			$rs = self::$entity_object->{self::$entity_secure_get_method}( $data );
 			
 			if( !empty($rs) ) {
+				self::saveSessionData($rs);
 
-				$_SESSION[self::$session_var_name] = $rs;
-				$_SESSION[self::$session_var_name]['csrf_token'] = sha1(time().rand());
-
-				// for JS CSRF use set cookie
-				setcookie('csrf_token', $_SESSION[self::$session_var_name]['csrf_token'], 0, '/');
+				if ($remember_me) {
+					self::rememberMe();
+				}
 
 				return true;
-
 			}
 			else{
 				Alert::set('error','Wrong credentials');
 				return false;
 			}
-			
 		}
 		else{
-
 			Alert::set('error','Mandatory fields can\'t be empty');
 			return false;
-
 		}
 		
 	}
@@ -71,6 +68,17 @@ class Auth{
 		if( !empty( $_SESSION[self::$session_var_name] ) ){
 			return true;			
 		}
+		else if (isset($_COOKIE["Remember_me_".$_SERVER['SERVER_NAME']])) {
+			// CHECK REMEMBER ME
+			$user = self::$entity_object->where('remember_me_token', $_COOKIE["Remember_me_".$_SERVER['SERVER_NAME']]);
+
+			if (!empty($user) && $user[0]['remember_me_ip'] == $_SERVER['REMOTE_ADDR']) {
+				// LOG ADMIN IN
+				$_SESSION['AuthLib_user_data_'.md5(self::$config['application']['salt'])] = $user[0];
+
+				return true;
+			}
+		}
 		else{
 			return false;			
 		}
@@ -79,17 +87,48 @@ class Auth{
 	static function refreshData()
 	{
 		if (isset($_SESSION[self::$session_var_name])) {
-			$_SESSION[self::$session_var_name] = self::$entity_object->{self::$entity_get_method}( self::data('id') );
-			return $_SESSION[self::$session_var_name];
+			$user = self::$entity_object->{self::$entity_get_method}( self::data('id') );
+			return self::saveSessionData($user);
 		}
 		else{
 			return false;
 		}
 	}
+
+	private static function rememberMe()
+	{
+		$rememberMeToken = substr(md5(rand()), 0, 60);
+
+		$data = [
+			'remember_me_token' => $rememberMeToken,
+			'remember_me_ip' => $_SERVER['REMOTE_ADDR'],
+		];
+
+		setcookie("Remember_me_".$_SERVER['SERVER_NAME'], $rememberMeToken, time() + (86400 * 5), "/"); // EXPIRE IN 5 DAYS
+
+		return self::$entity_object->update(self::data('id'), $data);
+	}
+
+	private static function saveSessionData($user)
+	{
+		$_SESSION[self::$session_var_name] = $user;
+		$_SESSION[self::$session_var_name]['csrf_token'] = sha1(time().rand());
+
+		// for JS CSRF use set cookie
+		setcookie('csrf_token', $_SESSION[self::$session_var_name]['csrf_token'], 0, '/');
+
+		return $_SESSION[self::$session_var_name];
+	}
 	
 	static function logout()
 	{
+		// REMOVE REMEMBER ME
+		if (isset($_COOKIE["Remember_me_".$_SERVER['SERVER_NAME']])) {
+			setcookie("Remember_me_".$_SERVER['SERVER_NAME'], "", time() - 3600, '/'); // DELETE COOKIE
+		}
+
 		unset( $_SESSION[self::$session_var_name] );
+
 		return true;	
 	}
 	
@@ -101,8 +140,7 @@ class Auth{
 	}
 	
 	static function hash( $string ){	
-		global $_config;
-		$salt = isset($_config['application']['salt']) ? $_config['application']['salt'] : '';
+		$salt = isset(self::$config['application']['salt']) ? self::$config['application']['salt'] : '';
 		return sha1($salt.$string);	
 	}
 
@@ -115,8 +153,8 @@ class Auth{
 		}
 	}
 
-	static function checkCSRF(){
-		
+	static function checkCSRF()
+	{
 		if( !empty($_SESSION[self::$session_var_name]['csrf_token']) && !empty($_POST) ){
 			if( empty($_POST['csrf_token']) || ($_POST['csrf_token'] != $_SESSION[self::$session_var_name]['csrf_token']) ){
 				
@@ -125,13 +163,11 @@ class Auth{
 				
 			}
 		}
-		
 	}
 
-	static function getCSRFtoken(){
-		
+	static function getCSRFtoken()
+	{
 		return !empty($_SESSION[self::$session_var_name]['csrf_token']) ? $_SESSION[self::$session_var_name]['csrf_token'] : null;
-		
 	}
 		
 }
