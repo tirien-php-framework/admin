@@ -31,16 +31,16 @@ class AdminForgotPasswordController extends Core
 			}
 
 			if ( isset($user[0]['emial']) ) {
-				$mails = [$user[0]['email']];
+				$mails = array($user[0]['email']);
 			}
 
 			else {
-				$mails = [
+				$mails = array(
 					// ADD CUSTOM EMAIL FOR RESET
 					// 'email' => "nemanja@system-inc.com",
 					'email' => "office@".$_SERVER['SERVER_NAME'],
 					'email' => "info@".$_SERVER['SERVER_NAME'],
-				];
+				);
 			}
 
 			$resetToken = substr(md5(rand()), 0, 20);
@@ -94,13 +94,13 @@ class AdminForgotPasswordController extends Core
 				// CHECK POST DATA
 				if (!empty($_POST['password']) && !empty($_POST['repeat_passwod']) && $_POST['repeat_passwod'] === $_POST['password']) {
 
-					$data = [
+					$data = array(
 						'username' => $user[0]['username'],
 						'password' => $_POST['password'],
-					];
+					);
 
 					$this->userModel->changePassword($data);
-					$this->userModel->update($user[0]['id'], ['reset_token' => null, 'reset_token_date' => null] );
+					$this->userModel->update($user[0]['id'], array('reset_token' => null, 'reset_token_date' => null) );
 					
 					if (isset($_SESSION['login'])) {
 

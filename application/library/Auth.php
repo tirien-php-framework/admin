@@ -99,10 +99,10 @@ class Auth{
 	{
 		$rememberMeToken = substr(md5(rand()), 0, 60);
 
-		$data = [
+		$data = array(
 			'remember_me_token' => $rememberMeToken,
 			'remember_me_ip' => $_SERVER['REMOTE_ADDR'],
-		];
+		);
 
 		setcookie("Remember_me_".$_SERVER['SERVER_NAME'], $rememberMeToken, time() + (86400 * 5), "/"); // EXPIRE IN 5 DAYS
 
