@@ -32,7 +32,7 @@
 				if( !empty($_POST['email']) && filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL ) ){
 					$insert_data = array(
 						'data' => json_encode($_POST),
-						'lead_type_id' => LEAD_TYPE_SUBSCRIPTION,
+						'lead_type_id' => LeadsController::LEAD_TYPE_SUBSCRIPTION,
 						'dti' => date("Y-m-d H:i:s")
 						);
 
@@ -49,7 +49,7 @@
 
 					$insert_data = array(
 						'data' => json_encode($_POST),
-						'lead_type_id' => LEAD_TYPE_CONTACT,
+						'lead_type_id' => LeadsController::LEAD_TYPE_CONTACT,
 						'dti' => date("Y-m-d H:i:s")
 						);
 
