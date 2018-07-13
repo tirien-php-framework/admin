@@ -2,7 +2,7 @@
 /**
  *	Authorization Library
  *	Tirien.com
- *	$Rev: 332 $
+ *	$Rev: 362 $
  */
 class Auth{
 
