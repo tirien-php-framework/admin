@@ -1,8 +1,6 @@
 <?php
 /**
  *	Authorization Library
- *	Tirien.com
- *	$Rev: 362 $
  */
 class Auth{
 
