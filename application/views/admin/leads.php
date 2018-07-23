@@ -4,6 +4,7 @@
 	<div class="button-wrap">
 		<a class="button" href="admin/export-xlsx">export to XLSX</a>
 		<a class="button" href="admin/export-csv">export to CSV</a>
+		<a class="button" href="admin/leads-setting">Leads Setting</a>
 	</div>		
 </div>
 

@@ -20,7 +20,7 @@
             <div class="login-form-wrap">
                 <div class="login-form">
                     <div class="logo-login">
-                        <img src="images/logo.png">
+                        <img src="images/logo-black.svg" style="max-width: 120px;">
                     </div>
 
                     <?php echo Alert::show() ?>
@@ -39,8 +39,8 @@
 
                         </div>
                         <div class="form-group">
-                            <label>Remember me</label>
-                            <input type="checkbox" name="remember_me" >
+                            <label for="rememberMe" class="label-remember-me">Remember me</label>
+                            <input type="checkbox" name="remember_me" id="rememberMe">
 
                         </div>
 
@@ -57,7 +57,7 @@
             </div>
         <?php endif ?>
 
-        <div class="login-background" style="background-image: url('images/image.jpg');"></div>
+        <div class="login-background" style="background-image: url('images/home-1.jpg');"></div>
     </div>
 
 
