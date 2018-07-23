@@ -7,7 +7,12 @@
 		<title>Admin</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
-		<link href="public/css/admin/admin.css" type="text/css" rel="stylesheet" />
+		<script>
+			var _baseUrl = "<?php echo Path::urlBase(); ?>";
+		</script>
+
+		<link href="public/css/admin/fontello.css" type="text/css" rel="stylesheet" />
+		<link href="public/css/admin/admin.min.css" type="text/css" rel="stylesheet" />
 		<script src="public/scripts/admin/admin.js"></script>
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 	</head>
@@ -60,55 +65,41 @@
 
 		    });
 	    </script>
-	    <style>
-		    header .logo {
-		    	margin:0;
-		    	display: block;
-		    }
-		    .header-top{
-			    padding: 47px 20px 60px;
-			    box-sizing: border-box;
-			    display: block;
-			    text-align: center;
-			}
-			.header-top h1{
-			    font-size: 2.7em;
-			    color: #4a4a4a;
-			    display: block;
-			}
-
-	    </style>
 	<body>
 
 	<div class="loader"></div>
 
-	<header class="cf">
+	<div class="top-header">
 		<a href="admin" class="logo">
 			<div class="header-top">
-				<h1>ADMIN</h1>
+				<!-- <h1>ADMIN</h1> -->
+				<img src="images/logo-black.svg" alt="Oram hotels">
 			</div>
 		</a>
+	</div><!-- end top header -->
+
+	<header class="cf">
 
 		<div class="header-menu cf">
 
 				<ul class="cf">
 					<li <?php echo Router::$action == "page" ? "class='active'" : ""  ?> >
-						<a href="admin/page">Page</a>
+						<a href="admin/page"><i class="icon-newspaper"></i> Pages</a>
 					</li>
-					<li <?php echo Router::$action == "lead" ? "class='active'" : ""  ?> >
-						<a href="admin/leads">Leads</a>
-					</li>
+					<li <?php echo Router::$action == "leads" ? "class='active'" : ""  ?> >
+						<a href="admin/leads"><i class="icon-mail"></i> Leads</a>
+					</li><!-- 
 					<li <?php echo Router::$controller == "admingallery" ? "class='active'" : ""  ?> >
-						<a href="admin-gallery">Galleries</a>
+						<a href="admin-gallery"><i class="icon-picture"></i> Galleries</a>
 					</li> 
 					<li <?php echo Router::$controller == "adminmap" ? "class='active'" : ""  ?> >
-						<a href="admin-map">Maps</a>
-					</li>
-					<li <?php echo Router::$controller == "adminlocation" ? "class='active'" : ""  ?> >
-						<a href="admin-location">Locations</a>
+						<a href="admin-map"><i class="icon-map-o"></i> Maps</a>
+					</li> -->
+					<!-- <li <?php echo Router::$controller == "adminlocation" ? "class='active'" : ""  ?> >
+						<a href="admin-location"><i class="icon-location"></i> Locations</a>
 					</li> 
 					<li <?php echo Router::$controller == "imagewithmarkers" ? "class='active'" : ""  ?> >
-						<a href="admin/imagewithmarkers">Image with Markers</a>
+						<a href="admin/imagewithmarkers"><i class="icon-file-image"></i> Image with Markers</a>
 					</li> 
 					<li <?php echo Router::$controller == "adminblog" ? "class='active'" : ""  ?> >
 						<div class="icon-menu"><div class="center cf"></div></div>
@@ -116,15 +107,21 @@
 						<ul class="submenu">
 							<li><a href="admin-blogcategory">Categories</a></li>
 						</ul>
-					</li>
+					</li> -->
+					<li <?php echo Router::$controller == "admin-portfolio" ? "class='active'" : ""  ?> >
+						<a href="admin-portfolio"><i class="icon-edit"></i> Portfolio</a>
+					</li> 
+					<li <?php echo Router::$controller == "team" ? "class='active'" : ""  ?> >
+						<a href="admin-team"><i class="icon-edit"></i> Team</a>
+					</li> 
 					<li <?php echo Router::$controller == "seo" ? "class='active'" : ""  ?> >
-						<a href="admin/seo">SEO</a>
+						<a href="admin/seo"><i class="icon-chart-line"></i> SEO</a>
 					</li> 
 				</ul>
 
 				<ul class="account cf">
 					<li>
-						<a href="admin/logout" class="logout">Logout</a>
+						<a href="admin/logout" class="logout"><i class="icon-logout"></i> Logout</a>
 					</li>
 				</ul>
 			</div>

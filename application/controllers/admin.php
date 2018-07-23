@@ -3,7 +3,7 @@
 	define("ELEMENT_TYPE_TEXTAREA", 2);
 	define("ELEMENT_TYPE_IMAGE", 	3);
 	define("ELEMENT_TYPE_GALLERY", 	4);
-	define("ELEMENT_TYPE_LINK", 	5);
+	define("ELEMENT_TYPE_FILE", 	5);
 	define("ELEMENT_TYPE_HTML", 	6);
 	define("ELEMENT_TYPE_SUBTITLE", 7);
 
@@ -65,7 +65,7 @@
 		}
 
 		public function indexAction(){
-			
+			Router::go( ml::p()."admin/page/" );	
 		}
 
 		public function pageAction(){
@@ -88,7 +88,13 @@
 						if ($_FILES[$key]['name'] != '') {
 							list( , $temp ) = explode('.', $_FILES[$key]['name']);										
 
-							if ($_FILES[$key]['type'] == "image/svg+xml") {
+							if ($_FILES[$key]['type'] == "video/mp4") {
+								$video = File::upload($key, 'public/uploads/videos');		
+								foreach ($video as $value) {
+						    		$elements[$key] = $value;
+								}
+							}
+							else if ($_FILES[$key]['type'] == "image/svg+xml") {
 								$svg = File::upload($key, 'public/uploads/images');		
 								foreach ($svg as $value) {
 						    		$elements[$key] = $value;
@@ -138,7 +144,6 @@
 				else{
 					Alert::set("error","Error saving");
 				}
-				vd(ml::p());
 
 				Router::go( ml::p()."admin/page/edit/" . $this->view->pageId );
 
@@ -284,6 +289,25 @@
 				else{
 					Router::pageNotFound();
 				}
+			}
+		}
+
+		public function leadsSettingAction()
+		{
+			// SET LEAD TABLE
+			$this->setLeadTable();
+
+			if (!empty($_POST)) {
+				DB::update('lead_setting', $_POST, 'id=1');
+			}
+
+			$this->view->leadsSetting = DB::query( "SELECT * FROM lead_setting WHERE id=1 LIMIT 1" );
+
+			if( !empty($this->view->leadsSetting) ){
+				$this->view->leadsSetting = $this->view->leadsSetting[0];
+			}
+			else{
+				Router::pageNotFound();
 			}
 		}
 

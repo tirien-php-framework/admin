@@ -25,38 +25,41 @@
 			<div class="cf"></div>
 		 
 			<?php if (isset($this->view->galleryimage)): ?> 
-				<label>Title</label>
-				<input name="title" type="text" value="<?php echo (isset($this->view->galleryimage)) ? $this->view->galleryimage->getTitle() : '' ?>">
+				<?php if (empty($_GET['redirect'])): ?>
+					
+					<label>Title</label>
+					<input name="title" type="text" value="<?php echo (isset($this->view->galleryimage)) ? $this->view->galleryimage->getTitle() : '' ?>">
 
-				<label>Thumbnail</label>
-				<div class="file-input-wrap cf">
-					<?php if(!empty($this->view->galleryimage->getThumb())): ?>
-						<div class="small-image-preview" style="background-image: url(<?php echo $this->view->galleryimage->getThumb() ?>)"></div>
-						<input type="checkbox" name="delete_thumb" value="1">Delete this file?
-					<?php else: ?>
-						<div class="fileUpload">
-							<span>Choose file</span>
-							<input type="file" name="elements[thumb]"/>
-						</div>
-					<?php endif ?>
-				</div>				
+					<label>Thumbnail</label>
+					<div class="file-input-wrap cf">
+						<?php if(!empty($this->view->galleryimage->getThumb())): ?>
+							<div class="small-image-preview" style="background-image: url(<?php echo $this->view->galleryimage->getThumb() ?>)"></div>
+							<input type="checkbox" name="delete_thumb" value="1">Delete this file?
+						<?php else: ?>
+							<div class="fileUpload">
+								<span>Choose file</span>
+								<input type="file" name="elements[thumb]"/>
+							</div>
+						<?php endif ?>
+					</div>				
 
-				<!-- <label>Blur</label>
-				<div class="file-input-wrap cf">
-					<?php if(!empty($this->view->galleryimage->getBlur())): ?>
-						<div class="small-image-preview" style="background-image: url(<?php echo $this->view->galleryimage->getBlur() ?>)"></div>
-						<input type="checkbox" name="delete_blur" value="1">Delete this file?
-					<?php else: ?>
-						<div class="fileUpload">
-							<span>Choose file</span>
-							<input type="file" name="elements[blur]"/>
-						</div>
-					<?php endif ?>
-				</div> -->
-							
-				<label>Text</label>
-				<textarea name="text"><?php echo (isset($this->view->galleryimage)) ? $this->view->galleryimage->getText() : '' ?></textarea>
+					<!-- <label>Blur</label>
+					<div class="file-input-wrap cf">
+						<?php if(!empty($this->view->galleryimage->getBlur())): ?>
+							<div class="small-image-preview" style="background-image: url(<?php echo $this->view->galleryimage->getBlur() ?>)"></div>
+							<input type="checkbox" name="delete_blur" value="1">Delete this file?
+						<?php else: ?>
+							<div class="fileUpload">
+								<span>Choose file</span>
+								<input type="file" name="elements[blur]"/>
+							</div>
+						<?php endif ?>
+					</div> -->
+								
+					<label>Text</label>
+					<textarea name="text"><?php echo (isset($this->view->galleryimage)) ? $this->view->galleryimage->getText() : '' ?></textarea>
 
+				<?php endif ?>
 			<?php endif ?>
 		 
 		<input name="gallery_id" type="hidden" value="<?php echo $this->view->galleryId ?>">
@@ -83,7 +86,11 @@
 			<br><br>
 
 			<div class="action-wrap cf">
-				<a href="admin-gallery/edit/<?php echo $this->view->galleryId ?>" class="button back-button">Back to Gallery</a>
+				<?php if (!empty($_GET['redirect'])): ?>
+					<a href="<?php echo $_GET['redirect'] ?>" class="button back-button">Back to Gallery</a>
+				<?php else: ?>
+					<a href="admin-gallery/edit/<?php echo $this->view->galleryId ?>" class="button back-button">Back to Gallery</a>
+				<?php endif ?>
 				<?php if (isset($this->view->galleryimage)): ?> 
 					<button type="submit" class="button save-item long-button">Save</button>
 				<?php endif ?>

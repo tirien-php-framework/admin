@@ -49,13 +49,16 @@
 
 					break;	
 
-					case ELEMENT_TYPE_LINK:
+					case ELEMENT_TYPE_FILE:
 					echo '<label title="'.$element['id'].'">'.$element['title'].'</label>';
-					echo '<input type="text" disabled style="width: 300px;margin-right: 10px;" name="elements['.$element['id'].']" value="'.$element['content'.$lang_sufix].'">';
+					echo '<video id="myVideo" width="100%" height="100%" loop autoplay muted playsinline>
+		<source src="'.$element['content'.$lang_sufix].'" type="video/mp4">
+		Your browser does not support the video tag.
+	</video>';
 
 					echo '<div class="fileUpload" style="overflow:visible">
 							    <span>Choose file</span>
-							    <input type="file" class="upload" name="elements['.$element['id'].']" />
+							    <input type="file"  name="elements['.$element['id'].']" />
 							</div>';
 					break;	
 
@@ -73,11 +76,11 @@
 			} ?>
 
        <div class="action-wrap">
-            <input type="submit" value="Save" class="save-item">
+            <input type="submit" value="Save" class="save-item fixed-save-button">
         </div>
 	</form>
 
-	<div class="cf" style="display: block;">
+	<div class="cf" style="display: none;">
 		<br><br><br><br>
 		<form action="admin/page/add-element" method="post" accept-charset="utf-8">
 			<h2>Add new element</h2>
@@ -93,7 +96,7 @@
 					<option value="<?php echo ELEMENT_TYPE_TEXTLINE ?>">Textline</option>
 					<option value="<?php echo ELEMENT_TYPE_TEXTAREA ?>">Textarea</option>
 					<option value="<?php echo ELEMENT_TYPE_IMAGE ?>">Image</option>
-					<option value="<?php echo ELEMENT_TYPE_LINK ?>">Link</option>
+					<option value="<?php echo ELEMENT_TYPE_FILE ?>">File</option>
 					<option value="<?php echo ELEMENT_TYPE_HTML ?>">Html</option>
 					<option value="<?php echo ELEMENT_TYPE_SUBTITLE ?>">Subtitle</option>
 				</select>

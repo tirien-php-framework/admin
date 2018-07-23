@@ -14,7 +14,7 @@
 		<?php } ?>
 	</ul>
 
-	<div class="cf" style="display: block;">
+	<div class="cf" style="display: none;">
 		<br><br><br><br>
 		<form action="admin/page/add-page" method="post" accept-charset="utf-8">
 			<h2>Add new page</h2>
