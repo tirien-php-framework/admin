@@ -23,6 +23,11 @@ abstract class Query_Builder
 	{
 		return DB::query( "SELECT * FROM $this->table WHERE status=1 ORDER BY created_at DESC");	
 	}
+
+	public function getOrdered()
+	{
+		return DB::query( "SELECT * FROM $this->table WHERE status=1 ORDER BY order_number");	
+	}
 	
 	public function all()
 	{
