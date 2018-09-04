@@ -36,14 +36,18 @@ class Image
 		$arr = array();
 		$arr['status'] = 1;
 		$arr['message'] = 'Success';
+		$arr['cloudinary'] = false;
 
-		$upload = \Cloudinary\Uploader::upload($_FILES[$name]['tmp_name'], array("progressive" => true, "quality" => "auto", "fetch_format" => "auto", "public_id" => $_SERVER['HTTP_HOST'] ."/". $_FILES[$name]['name']));
+		$imageName = $key !== null ? $_FILES[$name]['tmp_name'][$key] : $_FILES[$name]['tmp_name'];
 
-		if (is_array($upload)) {
-			$arr['uri'] = $upload['secure_url'];
+		$upload = \Cloudinary\Uploader::upload($imageName, array("progressive" => true, "quality" => "auto", "fetch_format" => "auto", "public_id" => $_SERVER['HTTP_HOST'] ."/". $imageName));
 
-			return $arr;
-		}
+		// if (is_array($upload)) {
+		// 	$arr['uri'] = $upload['secure_url'];
+		// 	$arr['cloudinary'] = true;
+
+		// 	return $arr;
+		// }
 
 		//reads the name of the file the user submitted for uploading
 		$image = $key !== null ? $_FILES[$name]['name'][$key] : $_FILES[$name]['name'];
@@ -108,7 +112,12 @@ class Image
 		$arr['uri'] = preg_replace('/^public\//i', '', $newname);
 		$arr['filename'] = $image_name;
 
-		$copied = $key !== null ? copy($_FILES[$name]['tmp_name'][$key], $newname) : copy($_FILES[$name]['tmp_name'], $newname);
+		if (is_array($upload)) {
+			$copied = copy($upload['secure_url'], $newname);
+		}
+		else {
+			$copied = $key !== null ? copy($_FILES[$name]['tmp_name'][$key], $newname) : copy($_FILES[$name]['tmp_name'], $newname);
+		}
 
 		if( !$copied ){
 			$arr['status'] = 0;
@@ -116,7 +125,7 @@ class Image
 			return $arr;
 		}
 
-		self::progresive($arr['path']);
+		self::progresive($newname);
 
 		return $arr;
 	}
