@@ -37,7 +37,7 @@ class Image
 		$arr['status'] = 1;
 		$arr['message'] = 'Success';
 
-		$upload = \Cloudinary\Uploader::upload($_FILES[$name]['tmp_name'], array("quality" => "auto", "fetch_format" => "auto", "public_id" => $_SERVER['HTTP_HOST'] ."/". $_FILES[$name]['name']));
+		$upload = \Cloudinary\Uploader::upload($_FILES[$name]['tmp_name'], array("progressive" => true, "quality" => "auto", "fetch_format" => "auto", "public_id" => $_SERVER['HTTP_HOST'] ."/". $_FILES[$name]['name']));
 
 		if (is_array($upload)) {
 			$arr['uri'] = $upload['secure_url'];
