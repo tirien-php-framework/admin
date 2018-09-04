@@ -10,7 +10,7 @@ class Validator
 	 * Array $data
 	 * Array $condition
 	 *
-	 * return error message or bool(true)
+	 * return string|bool
 	 */
 	public static function validate(array $data, array $condition)
 	{
