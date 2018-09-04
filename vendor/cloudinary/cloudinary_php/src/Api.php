@@ -454,7 +454,6 @@ namespace Cloudinary {
                     "auto_tagging",
                     "background_removal",
                     "quality_override",
-                    "notification_url",
                 )
             );
 
@@ -733,7 +732,7 @@ namespace Cloudinary {
         public function transformations($options = array())
         {
             $uri = array("transformations");
-            $params = $this->only($options, array("named", "next_cursor", "max_results"));
+            $params = $this->only($options, array("next_cursor", "max_results"));
 
             return $this->call_api("get", $uri, $params, $options);
         }

@@ -1,5 +1,18 @@
 <?php
 
+if (is_file(__DIR__ . '/../../vendor/autoload.php') && is_readable(__DIR__ . '/../../vendor/autoload.php')) {
+    require_once __DIR__.'/../../vendor/autoload.php';
+} else {
+    // Fallback to legacy autoloader
+    require_once __DIR__.'/../../autoload.php';
+}
+
+\Cloudinary::config(array( 
+  "cloud_name" => "dohn4mj3f", 
+  "api_key" => "352954792973665", 
+  "api_secret" => "xXeryhlLBTNZbjVbYibPIKq8Kes" 
+));
+
 class Image
 {
 	const DEFAULT_JPG_QUALITY = 90;
@@ -10,10 +23,7 @@ class Image
 		return end($tmp);
 	}
 
-
-
 	/**
-	 *
 	 * Upload image
 	 *
 	 * @param $name
@@ -21,11 +31,19 @@ class Image
 	 *
 	 * @return array
 	 */
-	static function upload( $name, $dirname, $key = null ) {
-
+	static function upload( $name, $dirname, $key = null ) 
+	{
 		$arr = array();
 		$arr['status'] = 1;
 		$arr['message'] = 'Success';
+
+		$upload = \Cloudinary\Uploader::upload($_FILES[$name]['tmp_name'], array("quality" => "auto", "fetch_format" => "auto", "public_id" => $_SERVER['HTTP_HOST'] ."/". $_FILES[$name]['name']));
+
+		if (is_array($upload)) {
+			$arr['uri'] = $upload['secure_url'];
+
+			return $arr;
+		}
 
 		//reads the name of the file the user submitted for uploading
 		$image = $key !== null ? $_FILES[$name]['name'][$key] : $_FILES[$name]['name'];
@@ -103,8 +121,6 @@ class Image
 		return $arr;
 	}
 
-
-
 	/*
 	 * PHP function to resize an image maintaining aspect ratio
 	 */
@@ -178,8 +194,6 @@ class Image
 
 	    return $save_image;
 	}
-
-
 
 	/*
 	 * PHP function to crop and resize an image of fixed dimensions
@@ -265,8 +279,6 @@ class Image
 
 	    return $save_image;
 	}
-
-
 
 	/*
 	 * PHP function to convert image to grayscale

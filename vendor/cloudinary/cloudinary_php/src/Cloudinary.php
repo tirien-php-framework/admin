@@ -370,19 +370,6 @@ class Cloudinary
     }
 
     /**
-     * Encodes data with URL safe base64
-     *
-     * @see https://tools.ietf.org/html/rfc4648#section-5
-     *
-     * @param mixed $data The data to encode.
-     *
-     * @return string The encoded data, as a string.
-     */
-    private static function base64url_encode($data) {
-        return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
-    }
-
-    /**
      * Helper function for making a recursive array copy while cloning objects on the way.
      *
      * @param array $array Source array
@@ -494,11 +481,11 @@ class Cloudinary
         $dpr = Cloudinary::option_consume($options, "dpr", Cloudinary::config_get("dpr"));
 
         $duration = Cloudinary::norm_range_value(Cloudinary::option_consume($options, "duration"));
-        $start_offset = Cloudinary::norm_auto_range_value(Cloudinary::option_consume($options, "start_offset"));
+        $start_offset = Cloudinary::norm_range_value(Cloudinary::option_consume($options, "start_offset"));
         $end_offset = Cloudinary::norm_range_value(Cloudinary::option_consume($options, "end_offset"));
         $offset = Cloudinary::split_range(Cloudinary::option_consume($options, "offset"));
         if (!empty($offset)) {
-            $start_offset = Cloudinary::norm_auto_range_value($offset[0]);
+            $start_offset = Cloudinary::norm_range_value($offset[0]);
             $end_offset = Cloudinary::norm_range_value($offset[1]);
         }
 
@@ -507,11 +494,11 @@ class Cloudinary
         $overlay = Cloudinary::process_layer(Cloudinary::option_consume($options, "overlay"), "overlay");
         $underlay = Cloudinary::process_layer(Cloudinary::option_consume($options, "underlay"), "underlay");
         $if = Cloudinary::process_if(Cloudinary::option_consume($options, "if"));
-        $custom_action = Cloudinary::process_custom_action(Cloudinary::option_consume($options, "custom_action"));
+
         $aspect_ratio = Cloudinary::option_consume($options, "aspect_ratio");
         $opacity = Cloudinary::option_consume($options, "opacity");
         $quality = Cloudinary::option_consume($options, "quality");
-        $radius = Cloudinary::process_radius(Cloudinary::option_consume($options, "radius"));
+        $radius = Cloudinary::option_consume($options, "radius");
         $x = Cloudinary::option_consume($options, "x");
         $y = Cloudinary::option_consume($options, "y");
         $zoom = Cloudinary::option_consume($options, "zoom");
@@ -528,12 +515,11 @@ class Cloudinary
             "e" => self::normalize_expression($effect),
             "eo" => $end_offset,
             "fl" => $flags,
-            "fn" => $custom_action,
             "h" => self::normalize_expression($height),
             "l" => $overlay,
             "o" => self::normalize_expression($opacity),
             "q" => self::normalize_expression($quality),
-            "r" => $radius,
+            "r" => self::normalize_expression($radius),
             "so" => $start_offset,
             "t" => $named_transformation,
             "u" => $underlay,
@@ -632,34 +618,20 @@ class Cloudinary
         $font_family = Cloudinary::option_get($layer, "font_family");
         $font_size = Cloudinary::option_get($layer, "font_size");
         $keywords = array();
-
         foreach (Cloudinary::$LAYER_KEYWORD_PARAMS as $attr => $default_value) {
             $attr_value = Cloudinary::option_get($layer, $attr, $default_value);
             if ($attr_value != $default_value) {
                 array_push($keywords, $attr_value);
             }
         }
-
         $letter_spacing = Cloudinary::option_get($layer, "letter_spacing");
         if ($letter_spacing != null) {
             array_push($keywords, "letter_spacing_$letter_spacing");
         }
-
         $line_spacing = Cloudinary::option_get($layer, "line_spacing");
         if ($line_spacing != null) {
             array_push($keywords, "line_spacing_$line_spacing");
         }
-
-        $font_antialiasing = Cloudinary::option_get($layer, "font_antialiasing");
-        if ($font_antialiasing != null) {
-            array_push($keywords, "antialias_$font_antialiasing");
-        }
-
-        $font_hinting = Cloudinary::option_get($layer, "font_hinting");
-        if ($font_hinting != null) {
-            array_push($keywords, "hinting_$font_hinting");
-        }
-
         $has_text_options = $font_size != null || $font_family != null || !empty($keywords);
         if (!$has_text_options) {
             return null;
@@ -675,7 +647,6 @@ class Cloudinary
 
         return implode("_", array_filter($keywords, 'Cloudinary::is_not_null'));
     }
-
 
     /**
      * Handle overlays.
@@ -708,7 +679,7 @@ class Cloudinary
             if (!empty($fetch) || $resource_type === "fetch") {
                 $public_id = null;
                 $resource_type = "fetch";
-                $fetch = self::base64url_encode($fetch);
+                $fetch = base64_encode($fetch);
             } // Text overlay.
             elseif (!empty($text) || $resource_type === "text") {
                 $resource_type = "text";
@@ -758,7 +729,7 @@ class Cloudinary
         } // Handle fetch overlay from string definition.
         elseif (substr($layer, 0, strlen('fetch:')) === 'fetch:') {
             $url = substr($layer, strlen('fetch:'));
-            $b64 = self::base64url_encode($url);
+            $b64 = base64_encode($url);
             $layer = 'fetch:' . $b64;
         }
 
@@ -846,31 +817,6 @@ class Cloudinary
         return $border;
     }
 
-    private static function process_radius($radius)
-    {
-        if (!is_array($radius)) {
-            return $radius;
-        }
-
-        return implode(":", array_map("self::normalize_expression", $radius));
-    }
-
-    private static function process_custom_action($custom_action)
-    {
-        if (!is_array($custom_action)) {
-            return $custom_action;
-        }
-
-        $action_type = Cloudinary::option_get($custom_action, "action_type");
-        $source = Cloudinary::option_get($custom_action, "source");
-
-        if ($action_type == 'remote') {
-            $source = self::base64url_encode($source);
-        }
-
-        return implode(':', [$action_type, $source]);
-    }
-
     private static function split_range($range)
     {
         if (is_array($range) && count($range) >= 2) {
@@ -908,14 +854,6 @@ class Cloudinary
         }
 
         return $matches['value'] . $modifier;
-    }
-
-    private static function norm_auto_range_value($value)
-    {
-        if ($value == 'auto') {
-            return $value;
-        }
-        return self::norm_range_value($value);
     }
 
     private static function process_video_codec_param($param)
@@ -1013,7 +951,11 @@ class Cloudinary
         $signature = null;
         if ($sign_url && !$auth_token) {
             $to_sign = implode("/", array_filter(array($transformation, $source_to_sign)));
-            $signature = self::base64url_encode(sha1($to_sign . $api_secret, true));
+            $signature = str_replace(
+                array('+', '/', '='),
+                array('-', '_', ''),
+                base64_encode(sha1($to_sign . $api_secret, true))
+            );
             $signature = 's--' . substr($signature, 0, 8) . '--';
         }
 
