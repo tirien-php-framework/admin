@@ -33,7 +33,7 @@ Class Model_Gallery
         return db::query('SELECT * FROM gallery_images ORDER BY gallery_id,order_number');
     }
 
-    public function addGallery( $event_id ) {
+    public function addGallery( $event_id = false ) {
         $data = array(
             "title" => 'Gallery',
             "event_id" => $event_id
