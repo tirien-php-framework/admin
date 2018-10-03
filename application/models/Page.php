@@ -18,7 +18,7 @@ Class Model_Page extends Query_Builder
 	}
 
 	public function getElements( $page_id ){
-		return DB::query("SELECT * FROM page_element WHERE status=1 AND page_id=? ORDER BY order_number", $page_id);	
+		return DB::query("SELECT * FROM page_element WHERE status=1 AND page_id=? ORDER BY order_number, id", $page_id);	
 	}
 
 	public function getElement( $element_id ){
