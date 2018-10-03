@@ -181,6 +181,16 @@
 					Router::go( ml::p()."admin/page/" );
 				}
 			}
+			if ( Router::$params[0] == "save-order" ) {
+				$this->disableView();
+
+				$order = $_POST['order'];				
+				foreach ($order as $order_number => $id) {
+					DB::update('page_element', ['order_number' => (int)$order_number], ['id' => $id]);
+				}
+
+				echo "Success";
+			}
 		}
 
 
