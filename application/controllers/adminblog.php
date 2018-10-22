@@ -24,6 +24,7 @@
 			$this->view->categories = $this->BlogCategory->get();	
 			$this->view->post = array(
 				'title' => '',
+				'sub_title' => '',
 				'uri_id' => '',
 				'content' => '',
 				'autor' => '',
@@ -36,7 +37,7 @@
 				'meta_keyword' => '',
 				'blog_category_id' => '',
 				'created_at' => date("Y-m-d H:i:s"),
-				'visible' => ''
+				'visible' => '1'
 			);
 
 			$this->setView('adminblog/post.php');
@@ -75,7 +76,6 @@
 				if ($id == "new") {
 					$_POST['created_at'] = date("Y-m-d H:i:s");
 				}
-
 				if (!empty($_POST['delete_thumb']) || !empty($_POST['delete_pdf'])) {
 					$this->view->post = $this->Blog->find($id);
 
@@ -99,6 +99,8 @@
 						unset($_POST['delete_pdf']);
 					}
 				}
+
+				$_POST['slug'] = $this->sanitizeSlug($_POST['title']);
 
 				$elements = $_POST;
 
@@ -159,4 +161,15 @@
 			Alert::set("success", "Blog removed");
 			Router::go('admin-blog');
 		}
+
+		public function sanitizeSlug($slug)
+	    {
+	        $newSlug = trim(strtolower(preg_replace(['/[^a-zA-Z0-9\/]/', '/\/+/', '/-+/'], ['-', '/', '-'], $slug)), '-');
+	        
+	        if (!empty($this->Blog->where('slug', $newSlug))) {
+	        	return $this->sanitizeSlug($newSlug.'-1');
+	        }
+
+	        return $newSlug;
+	    }
 	}

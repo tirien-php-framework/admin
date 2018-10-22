@@ -11,7 +11,10 @@
 		<label>Title</label>
 		<input type="text" name="title" value="<?php echo $this->view->post['title'] ?>">
 
-		<label>Autor</label>
+		<label>Sub title</label>
+		<input type="text" name="sub_title" value="<?php echo $this->view->post['sub_title'] ?>">
+
+		<label>Source</label>
 		<input type="text" name="autor" value="<?php echo $this->view->post['autor'] ?>">
 		
 		<label>Url</label>
@@ -27,31 +30,31 @@
 			<label>Blog Category</label>
 			<div class="select-style">
 				<select name="blog_category_id">
-						<option value="0">Choose category</option>
 					<?php foreach ($this->view->categories as &$category): ?>
 						<option value="<?php echo $category['id'] ?>" <?php if ($category['id']==$this->view->post['blog_category_id']): ?> selected <?php endif ?>><?php echo $category['title'] ?></option>
 					<?php endforeach ?>
+					<option value="0">Choose category</option>
 				</select>				
 			</div>
 		</div>
 
-		<label>Thumbnail</label>
-		<div class="file-input-wrap cf">
-			<?php if(!empty($this->view->post['thumb'])): ?>
-				<div class="small-image-preview" style="background-image: url(<?php echo $this->view->post['thumb'] ?>)"></div>
-				<input type="checkbox" name="delete_thumb" value="1">Delete this file?
-			<?php else: ?>
-				<div class="fileUpload">
-					<span>Choose file</span>
-					<input type="file" name="elements[thumb]"/>
-				</div>
-			<?php endif ?>
+		<div class="gallery-wrap">
+			<ul class="image-list cf">
+			<label>Thumbnail</label>
+			<li class="items-order">
+			<img src="<?php echo $this->view->post['thumb'] ?>"/>
+			</li>
+			<div class="fileUpload">
+			    <span>Choose file</span>
+			    <input type="file" class="upload"  name="elements[thumb]"/>
+			</div>
+			</ul>
 		</div>
 
 		<label>PDF</label>
 		<div class="file-input-wrap cf">
 			<?php if(!empty($this->view->post['pdf'])): ?>
-				<a href="<?php echo $this->view->post['pdf'] ?>"><div class="small-image-preview" style="background-image: url('public/admin/css/images/pdf-icon.svg')"></div></a>
+				<a href="<?php echo $this->view->post['pdf'] ?>"><div class="small-image-preview" style="background-image: url('images/admin/pdf-icon.svg')"></div></a>
 				<input type="checkbox" name="delete_pdf" value="1">Delete this file?
 			<?php else: ?>
 				<div class="fileUpload">
@@ -83,7 +86,7 @@
 
 		<div class="cf"></div>
 
-		<input type="submit" value="Save" class="save-item">
+		<input type="submit" value="Save" class="save-item fixed-save-button">
 
 		<?php if (!empty($this->view->post['id'])): ?>
 			<a class="button remove-item" href="admin-blog/remove/<?php echo $this->view->post['id'] ?>">Delete</a>

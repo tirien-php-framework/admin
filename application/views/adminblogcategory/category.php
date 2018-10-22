@@ -58,7 +58,7 @@
 		<label>SEO Keywords</label>
 		<input type="text" name="seo_keyword" value="<?php echo $this->view->category['seo_keyword'] ?>">
 
-		<input type="submit" value="Save" class="save-item">
+		<input type="submit" value="Save" class="save-item fixed-save-button">
 
 		<?php if (!empty($this->view->category['id'])): ?>
 			<a class="button remove-item" href="admin-blogcategory/remove/<?php echo $this->view->category['id'] ?>">Delete</a>
