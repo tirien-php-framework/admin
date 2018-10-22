@@ -7,10 +7,13 @@
 
 	<?php Alert::show() ?>
 
-	<form enctype="multipart/form-data" method="post" action="<?php echo ml::p() ?>admin/page/save/<?php echo $this->view->pageId ?>">
+	<form enctype="multipart/form-data" method="post" class="sortable" data-link="<?php echo ml::p() ?>admin/page/save-order/<?php echo $this->view->pageId ?>" action="<?php echo ml::p() ?>admin/page/save/<?php echo $this->view->pageId ?>">
 
-			<?php foreach( $this->view->elements as $element ){ 
+			<?php foreach( $this->view->elements as $element ){ ?>
+				<!-- DELETE no-sortable FOR SORTING ELEMENTS -->
+				<div class="items-order no-scrolable" data-id="<?php echo $element['id'] ?>"> 
 
+				<?php
 				$p = ml::p();
 				$lang_sufix = !empty($p) ? '_'.trim($p,'/') : '';
 
@@ -72,7 +75,9 @@
 					break;
 
 				}
-
+				?>
+			   </div>
+			<?php
 			} ?>
 
        <div class="action-wrap">
