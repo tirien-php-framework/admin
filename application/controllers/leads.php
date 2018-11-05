@@ -15,7 +15,7 @@
 		{			
 			DB::init(array(
 				"type" => 'sqlite',
-				"file" => 'application/databases/leads.db'
+				"file" => 'application/databases/leads.sqlite'
 			));
 		}
 

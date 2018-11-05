@@ -264,7 +264,7 @@
 		{
 			$db_config = array(
 				"type" => 'sqlite',
-				"file" => 'application/databases/leads.db'
+				"file" => 'application/databases/leads.sqlite'
 				);
 			
 			DB::init($db_config);
