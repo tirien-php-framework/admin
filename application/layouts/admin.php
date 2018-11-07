@@ -73,7 +73,7 @@
 		<a href="admin" class="logo">
 			<div class="header-top">
 				<!-- <h1>ADMIN</h1> -->
-				<img src="images/logo-black.svg" alt="Oram hotels">
+				<img src="images/logo-black.svg">
 			</div>
 		</a>
 	</div><!-- end top header -->
