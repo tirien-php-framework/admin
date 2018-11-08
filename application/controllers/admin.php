@@ -162,6 +162,7 @@
 			if ( Router::$params[0] == "add-element" ) {
 
 				if (!empty($_POST['title'] && !empty($_POST['type_id']))) {
+					$_POST['order_number'] = strtotime("now");
 					db::insert('page_element', $_POST);
 					Router::go( ml::p()."admin/page/edit/" . $_POST['page_id'] );
 				}
