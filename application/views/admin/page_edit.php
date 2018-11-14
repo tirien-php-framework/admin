@@ -54,10 +54,17 @@
 
 					case ELEMENT_TYPE_FILE:
 					echo '<label title="'.$element['id'].'">'.$element['title'].'</label>';
-					echo '<video id="myVideo" width="100%" height="100%" loop autoplay muted playsinline>
-		<source src="'.$element['content'.$lang_sufix].'" type="video/mp4">
-		Your browser does not support the video tag.
-	</video>';
+					
+					$file = pathinfo($element['content'.$lang_sufix]);
+					if ($file['extension'] == 'mp4') {
+						echo '<video id="myVideo" width="100%" height="100%" loop autoplay muted playsinline>
+								<source src="'.$element['content'.$lang_sufix].'" type="video/mp4">
+								Your browser does not support the video tag.
+							</video>';
+					}
+					else {
+						echo '<a style="margin-bottom:20px; display: block;" target="_blank" href="'.$element['content'.$lang_sufix].'">'.$file['basename'].'</a>';
+					}
 
 					echo '<div class="fileUpload" style="overflow:visible">
 							    <span>Choose file</span>
