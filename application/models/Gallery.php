@@ -38,7 +38,7 @@ Class Model_Gallery
             "title" => $title,
             "event_id" => $event_id
             );
-        DB::insert( "galleries", $data);    
+        return DB::insert( "galleries", $data);    
     }
 
     public function getEventId( $gallery_id){
