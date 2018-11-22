@@ -237,9 +237,15 @@
 				$galleryimage->load($imageId);
 				$galleryimage->remove();
 			}
-
+			
 			Alert::set("success", "Image removed");
-			Router::go('admin-gallery/edit/'.$galleryId);
+			
+			if (isset($_GET['redirect'])) {
+				Router::go($_GET['redirect']);
+			}
+			else {
+				Router::go('admin-gallery/edit/'.$galleryId);
+			}
 		}
 
 		public function saveorderAction(){
