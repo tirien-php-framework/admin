@@ -10,7 +10,7 @@
 <form action="admin-gallery/save/<?php echo $this->view->gallery['id'] ?>" enctype="multipart/form-data" method="post">
 
 	<label><?php echo $this->view->gallery['title'] ?></label>
-	<input name="title" disabled type="text" value="<?php echo $this->view->gallery['title'] ?>">
+	<input name="title" type="text" value="<?php echo $this->view->gallery['title'] ?>">
 		
 		<div class="action-wrap">
 			<a class="button" style="margin-left: 0px;" href="admin-gallery-images/edit/<?php echo $this->view->gallery['id'] ?>">Add image</a>
