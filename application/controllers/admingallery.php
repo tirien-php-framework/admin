@@ -70,9 +70,11 @@
 			$gallery = $this->Gallery->getGallery($id);
 
 			$data = $_POST;
-			// vd($data['order'],1);
 
-			// $this->Gallery->saveGallery($id, $data);
+			$gallery_data['title'] = $_POST['title'];
+			unset($_POST['title']);
+
+			$this->Gallery->saveGallery($id, $gallery_data);
 
 			if (isset( $data['order']) ) {
 
