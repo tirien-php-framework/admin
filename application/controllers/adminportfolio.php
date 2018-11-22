@@ -218,6 +218,9 @@
 						}						
 
 						db::update("portfolios", $elements, "id=".(int)$id );
+						
+						$this->Gallery->saveGallery($this->view->portfolio['gallery_id'], array('title' => $_POST['title']));
+						
 						Alert::set("success", "Portfolio updated");
 						Router::go('admin-portfolio/edit/'.$id);
 					}
