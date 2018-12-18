@@ -29092,7 +29092,7 @@ function codeAddress(address, proposal, resultsMap) {
 		}
 
 		if( !empty(proposal) ){
-			var mapSrc = 'https://maps.googleapis.com/maps/api/staticmap?center='+results[0].geometry.location.lat()+','+results[0].geometry.location.lng()+'&zoom='+resultsMap.getZoom()+'&scale=2&size=640x300&maptype=roadmap&key=AIzaSyCvMo4tix_7-gqUXt4QQuA8buWLcxzLyMw&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xf17201%7Clabel:%7C'+results[0].geometry.location.lat()+','+results[0].geometry.location.lng()
+			var mapSrc = 'https://maps.googleapis.com/maps/api/staticmap?center='+results[0].geometry.location.lat()+','+results[0].geometry.location.lng()+'&zoom='+resultsMap.getZoom()+'&scale=2&size=640x300&maptype=roadmap&key='+_googleAPIkey+'&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xf17201%7Clabel:%7C'+results[0].geometry.location.lat()+','+results[0].geometry.location.lng()
 
 			$('#mapImage').val(mapSrc);
 

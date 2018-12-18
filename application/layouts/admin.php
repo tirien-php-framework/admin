@@ -9,6 +9,7 @@
 
 		<script>
 			var _baseUrl = "<?php echo Path::urlBase(); ?>";
+			var _googleAPIkey = "<?php echo $_googleAPIkey = ''; ?>";
 		</script>
 
 		<link href="public/css/admin/fontello.css" type="text/css" rel="stylesheet" />
