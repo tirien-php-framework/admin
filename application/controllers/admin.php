@@ -27,11 +27,10 @@
 				$_SESSION['login']['forgot_password'] = 0;
 			}
 
-			// $u = new Model_User();
-			// $new_user = $u->createUser($_POST);
-			// vd($new_user,1);
-
 			$userModel = new Model_User();
+			
+			// $new_user = $userModel->createUser($_POST);
+			// dd($new_user);
 
 			if (!empty($_POST)) {
 				// CHECK LOGIN
